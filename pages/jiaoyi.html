@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>交易</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .telbtn{
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../Content/imgs/kbloading.gif">
+</div>
+    <div class="wrap">
+            <div class="jy-box">
+                <p class="jy-tit">借入资金</p>
+                <ul id="list1">
+                    <li><span id="zjr"></span> <p>已借入</p></li>
+                    <li class="line"><span id="jrqt"></span> <p>7天待还</p></li>
+                    <li><span id="jryq"></span><p>已逾期</p></li>
+                </ul>
+            </div>
+
+            <div class="jy-box">
+                <p class="jy-tit">出借资金</p>
+                <ul id="list2" >
+                    <li><span id="jcze"></span><p>已借出</p></li>
+                    <li class="line"><span id="jcqt">0.00</span> <p>7天待收</p></li>
+                    <li><span id="jcyq">0.00</span> <p>已逾期</p></li>
+                </ul>
+            </div>
+
+            <div class="jy-box" data-id="2" onclick="tonext(this)">
+                <p class="jy-tit">我的补借条</p>
+                <ul >
+                    <li>- - <p>待确定</p></li>
+                    <li class="line">- - <p>进行中</p></li>
+                    <li>- - <p>已完结</p></li>
+                </ul>
+            </div>
+
+        <a href="tel:0147-88469258" class="telbtn">拨打电话</a>
+
+        <p class="gzsj">周一至周五 9：00-18：00<br>（法定节假日除外）</p>
+
+    </div>
+<ul class="footer" id="footer">
+    <li class="jr">借入</li>
+    <li class="jc">借出</li>
+    <li class="xx">消息</li>
+    <li class="jl active">交易</li>
+    <li class="wd">我的</li>
+</ul>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    var Id=localStorage.id;
+    var jrqiridh="";
+    var jryq="";
+    var cjqrdh="";
+    var cjyyq="";
+    console.log(Id);
+    $.ajax({
+        type : "GET",
+        url : localStorage.url+"/deal/getDelList",
+        dataType : 'json',
+        async: false,
+        contentType : "application/json",
+        data :{
+            id:Id,
+        },
+        success : function(ro) {
+            console.log(ro);
+            $("#zjr").html(ro.deal_borrow.sum_borrow_money);
+            $("#jrqt").html(ro.deal_borrow.noRefund7_b);
+            jrqiridh=ro.deal_borrow.noRefund7_b;
+            $("#jryq").html(ro.deal_borrow.sum_overdue_money);
+            jryq=ro.deal_borrow.sum_overdue_money;
+            $("#jcze").html(ro.deal_loan.sum_loan_money);
+            $("#jcqt").html(ro.deal_loan.noRefund7_l);
+            $("#jcyq").html(ro.deal_loan.sum_overdue_money_l);
+            cjqrdh=ro.deal_loan.noRefund7_l;
+            cjyyq=ro.deal_loan.sum_overdue_money_l;
+            $("#loading").hide();
+        },
+        error : function(err) {
+            alert(err);
+        }
+    });
+    $("#list1 li").on('click',function () {
+        var index=$(this).index();
+        if(index===0){
+            window.location.href="jieruzijin.html"
+        }else {
+            window.location.href="daihuankuan.html?id="+Id+"&qiridh="+jrqiridh+"&yyq="+jryq
+        }
+    });
+
+    $("#list2 li").on('click',function () {
+        var index=$(this).index();
+        if(index===0){
+            window.location.href="jiechuzijin.html"
+        }else {
+            window.location.href="jiechudaihuankuan.html?id="+Id+"&cjqrdh="+cjqrdh+"&cjyyq="+cjyyq
+        }
+    });
+//    function tonext(obj) {
+//        var $this=$(obj);
+//        var id=$this.attr("data-id");
+//        if(id=="0"){
+//            window.location.href="daihuankuan.html?id="+Id+"&qiridh="+jrqiridh+"&yyq="+jryq
+//        }else  if(id=="1"){
+//            window.location.href="jiechudaihuankuan.html?id="+Id+"&cjqrdh="+cjqrdh+"&cjyyq="+cjyyq
+//        }else if(id=="2"){
+//            window.location.href="222"
+//        }
+//    }
+
+    $("#footer li").on('click',function () {
+        var index=$(this).index();
+        $(this).addClass('active').siblings().removeClass("active");
+        console.log(index)
+        if(index===0){
+            window.location.href="index.html"
+        }else if(index===1){
+            window.location.href="chujie.html"
+        }else if(index===2){
+            window.location.href="messages.html"
+        }else if(index===3){
+            window.location.href="jiaoyi.html"
+        }else if(index===4){
+            window.location.href="my.html"
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>信用报告列表</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+</head>
+<body>
+    <div class="wrap">
+       <ul class="credilist" id="ulbox">
+           <li data-id="0">1.用户详细信息  <span>待完善</span></li>
+           <li data-id="1">2.芝麻信用  <span>待完善</span></li>
+           <li data-id="2">3.运营商  <span>待完善</span></li>
+           <li data-id="3">4.电商信息  <span>待完善</span></li>
+       </ul>
+        <div class="ckxybox">
+            <a href="javascript:;" id="ckxybg">查看信用报告</a>
+        </div>
+    </div>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+           $("#ulbox li").on('click',function () {
+               var id=$(this).attr("data-id");
+               if(id==0){
+                   window.location.href="gereninfo.html"
+               }else if(id==1){
+                   window.location.href="zhimaxinyong.html"
+               }
+           })
+    });
+
+</script>
+</body>
+</html>

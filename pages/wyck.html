@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>我要出借</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <link href="../Content/css/iosSelect.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .srje{
+            border-bottom: 1px solid #d1d1d1;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../Content/imgs/kbloading.gif">
+</div>
+<div class="wrap" style="padding-bottom: 0">
+    <ul class="xzbox2">
+        <li>
+            <label>出借金额</label>
+            <div class="pc-box">
+                <input type="hidden" name="bank_id" id="bankId10" value="">
+                <span id="showBank10"  class=" showBank1">请选择</span>
+            </div>
+        </li>
+        <li>
+            <label>还款方式</label>
+            <div class="pc-box">
+            <input type="hidden" name="bank_id" id="bankId1" value="">
+            <span id="showBank1"  class=" showBank1">到期还本付息</span>
+        </div>
+        </li>
+        <li>
+            <label>最小出借时长</label>
+            <div class="pc-box">
+                <input type="hidden" name="bank_id" id="bankId5" value="">
+                <span id="showBank5"  class="showBank1">请选择</span>
+            </div>
+            <!--<div class="pc-box form-item item-line" id="selectDate">-->
+                <!--<div class="pc-box">-->
+                    <!--<span data-year="" data-month="" data-date="" id="showDate" class=" showBank1">选择时间</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        </li>
+
+        <li>
+            <label>最长出借时长</label>
+            <div class="pc-box">
+                <input type="hidden" name="bank_id" id="bankId9" value="">
+                <span id="showBank9"  class="showBank1">请选择</span>
+            </div>
+        </li>
+
+        <li>
+            <label>年化利率</label>
+            <div class="pc-box">
+                <input type="hidden" name="bank_id" id="bankId2" value="">
+                <span id="showBank2"  class=" showBank1">请选择</span>
+            </div>
+        </li>
+        <li>
+            <label>服务费率</label>
+            <div class="pc-box">
+                <input type="hidden" name="bank_id" id="bankId6" value="">
+                <span id="showBank6"  class=" showBank1">请选择</span>
+            </div>
+        </li>
+
+        <li style="border: none">
+            <label>服务最低额度</label>
+            <div class="pc-box">
+                <input type="hidden" name="bank_id" id="bankId7" value="">
+                <span id="showBank7"  class=" showBank1">请选择</span>
+            </div>
+        </li>
+
+    </ul>
+    <ul class="jkytbox xzbox2">
+        <li style="border: none">
+            <label>所有人可见</label>
+            <div class="pc-box">
+                <input type="hidden" name="bank_id" id="bankId3" value="1">
+                <span id="showBank3"  class=" showBank1">是</span>
+            </div>
+        </li>
+    </ul>
+    <div class="bcsmbox">
+        <textarea placeholder="补充说明" id="text"></textarea>
+    </div>
+
+    <div class="xybtn xz" >
+        <span id="xybtn"></span>
+        <p id="xywz">已阅读并同意《借款协议》</p>
+    </div>
+
+
+    <a class="qrfbbtn" href="javascript:;" id="qrfbbtn" onclick="subimt()">确认发布</a>
+</div>
+
+
+<div class="component-modal component-auth-step top-no-fade" style="display: none">
+    <div class="component-modal__mask"></div>
+    <div class="component-modal__container" style="width: 92%;">
+        <div class="component-modal__main">
+            <div class="component-auth-step__box">
+                <h1 class="component-auth-step__title">提示</h1>
+                <p class="component-auth-step__intro">为保证借贷安全，请在出借和借款前按顺序完成以下两步认证。</p>
+                <ul>
+                    <li class="component-auth-step__item">
+                        <div class="left"><span>第一步：银行卡认证</span> <p>用于我支付和提现借款。</p></div>
+                        <span class="button short" id="qbk">去绑卡</span>
+                    </li>
+                    <li class="component-auth-step__item">
+                        <div class="left"><span>第二步：信用报告认证</span> <p>用于证明我的信用程度，让出借和借款更有信心。</p></div>
+                        <span class="button short" id="qrz">去认证</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="component-auth-step__button button jsbtn2">
+                <i class="iconfont icon-arrow"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="component-auth-step__button jsbtn1">
+    <i class="iconfont icon-arrow"></i>
+</div>
+<div class="component-modal component-agreement jsxy" style="display: none"><div class="component-modal__mask"></div> <div class="component-modal__container" style="width: 92%;"><i class="component-modal__close iconfont icon-close-pure"></i> <!---->
+    <div class="component-modal__main"><div class="component-agreement__platform"><img src="../Content/imgs/eqb.60d6987.png" alt="">
+    <p>全国领先的第三方电子签名平台</p></div> <div class="component-agreement__header">借款协议</div> <p class="component-agreement__text">有借使用“e签宝”电子协议</p> <div class="wrapper"><div><!----> <div class="component-agreement__list"><div class="component-agreement__item">
+    为了使用有借平台进行借贷交易，用户（以下或称“您”）应当事先阅读并同时遵守《借款协议》（以下简称“本协议”）及您与浙江安牛科技有限公司（以下简称“安牛”）签署的相关服务协议（包括但不限于《用户注册协议》）。安牛依据本协议为您提供借贷交易的居间服务。
+</div> <div class="component-agreement__item">
+    安牛在此特别提醒您认真阅读和充分理解本协议各条款，特别是其中所涉及的免除或限制安牛责任、限制用户权利、争议解决和法律适用条款。请您审慎阅读并选择是否接受本协议。除非您接受本协议所有条款，否则您无权使用有借平台服务。您一经点击已阅读并同意本协议，即视为对本协议的理解和接受，您同意本协议对安牛和您具有法律约束力。如果您不同意本协议的任何内容或无法准确理解相关条款，请不要进行后续操作。
+</div> <div class="component-agreement__item">本协议由以下各方在浙江省杭州市签订：</div> <div class="component-agreement__item bold">甲方（借款人）：（已认证）</div> <div class="component-agreement__item bold">甲方身份证号：</div> <div class="component-agreement__item bold">甲方注册手机号：</div> <div class="component-agreement__item bold">乙方（出借人）：
+    （已认证）</div> <div class="component-agreement__item bold">
+    乙方身份证号：</div> <div class="component-agreement__item bold">乙方注册手机号：</div> <div class="component-agreement__item bold">丙方（居间服务商）：浙江安牛科技有限公司（“有借”平台的运营管理人）</div> <div class="component-agreement__item bold">客服电话：0571-87098933</div> <div class="component-agreement__item bold"></div>
+    <div class="component-agreement__item">居间服务商（本合同丙方）为有借平台（微信公众号“有借”）
+    的运营管理人，为借贷双方提供居间服务。借款人和出借人拟通过有借平台进行资金借贷交易或寻求其他借贷服务。</div> <div class="component-agreement__item">甲、乙<span class="component-agreement__item">双</span>方均已在丙方平台注册，同意遵守丙方平台的各项行为准则，在充分阅读理解本文本情形下，本着诚信自愿原则签订本《借款协议》。本协议内容如下：
+</div> <section class="component-agreement__item no-indent table-list"><h3 class="component-agreement__title no-indent">一、借款主要内容</h3> <div class="component-agreement__table"><table><tbody class="table-list__body have-border"><tr><td width="30%" class="component-agreement__table-item">借款金额:</td> <td class="component-agreement__table-item"></td></tr> <tr>
+    <td class="component-agreement__table-item">借款日期:</td>
+    <td class="component-agreement__table-item"></td></tr> <tr><td class="component-agreement__table-item">还款方式:</td> <td class="component-agreement__table-item"></td></tr> <tr><td class="component-agreement__table-item">年化利率:</td> <td class="component-agreement__table-item"></td></tr> <tr><td class="component-agreement__table-item">
+        借款用途:</td> <td class="component-agreement__table-item"></td></tr> <tr>
+    <td class="component-agreement__table-item">还款总额(预计金额，具体以实际产生的为准):</td> <td class="component-agreement__table-item"></td></tr></tbody></table></div> <div class="component-agreement__item no-indent">
+    注：还款总额=借款金额*（1+借款时长/365*年化利率），其中借款时长为借款日期和还款日期间的天数；此处的“借款日期”是指甲方向乙方实际支付借款且借款已到账的日期。
+</div> <div class="component-agreement__item no-indent">借款人可多次还款直至待还本息全部还清，但提前还款并不减少待还本息。</div></section> <section class="component-agreement__item no-indent"><h3 class="component-agreement__title no-indent">二、借款流程</h3> <h4 class="component-agreement__item bold">1、求借款流程</h4> <div class="component-agreement__item">
+    借款人在有借平台发布借款需求，填写借款金额、年化利率、还款方式、还款期限、分期次数、服务费金额等基本信息，点击确定后发送至有借平台求借款页面。该求借款信息仅借款人的好友可以看见。
+</div> <div class="component-agreement__item"> 看到上述求借款的借款人好友同意借款的，可立即进行支付。</div> <h4 class="component-agreement__item bold">2、申请出借流程</h4> <div class="component-agreement__item">
+    出借人在有借平台发布出借，填写或选择借款金额、年化利率、还款方式、还款期限、分期次数、服务费比例等基本信息，点击确定后发送至有借平台出借页面。该出借信息仅出借人的好友可以看见。
+</div> <div class="component-agreement__item"> 看到上述出借的出借人好友同意该出借的，可以申请此出借，经出借人审核同意，可立即进行支付。</div> <div class="component-agreement__item no-indent">
+    注意：出借人通过有借平台同意向借款人出借款项后，将出借资金存入出借人银行账户（以下简称“支付账户”），并授权安牛通过第三方支付机构将出借资金由出借人支付账户划转至借款人支付账户（经丙方转付），由于第三方支付机构的操作流程，出借人支付的借款到达安牛在第三方支付平台设立的账户后的次日，借款人方可取现。但借款人确认借款到达安牛在第三方支付平台设立的账户时，即视为出借人已履行了付款义务，
+        即为借款成功，本协议同时生效，利息开始计算。
+</div> <h4 class="component-agreement__item bold">3、补借条流程</h4> <div class="component-agreement__item">出借人和借款人在线下完成了借款资金的划转交割，需要通过有借平台完善借款手续的，双方都可以在有借平台起草借条，起草完成后点击发送按钮，即代表承认借条中约定的借款金额、起借日期、还款日期、年化利率等信息。在确认人确认该借条之前，起草人有权利将该借条删除。
+</div> <div class="component-agreement__item"> 确认人收到借条后，如果发觉借条载明信息有误，可以退回给起草人；如果确认无误，点击确认借条按钮即代表认可借条中约定信息，确认后本协议即时生效。</div></section> <section class="component-agreement__item no-indent"><h3 class="component-agreement__title no-indent">三、补借条流程</h3> <div class="component-agreement__item">
+    出借人和借款人在线下完成了借款资金的划转交割，需要通过有借平台完善借款手续的，双方都可以在有借平台起草借条，起草完成后点击发送按钮，即代表承认借条中约定的借款金额、起借日期、还款日期、年化利率等信息。在确认人确认该借条之前，起草人有权利将该借条删除。
+</div> <div class="component-agreement__item"> 确认人收到借条后，如果发觉借条载明信息有误，可以驳回给起草人；如果确认无误，点击确认借条按钮即代表认可借条中约定信息，确认后本协议即时生效。</div></section> <section class="component-agreement__item no-indent"><h3 class="component-agreement__title no-indent">四、借款费用</h3>
+        <h4 class="component-agreement__item bold">1、交易服务费</h4> <div class="component-agreement__item">
+    借款人应按双方约定的标准向丙方支付交易服务费<!---->元，作为丙方有借平台提供信息促成双方交易的居间服务费。本协议生效的同时，借款人的该支付义务同时生效，该费用从出借人支付给借款人的款项中直接扣除，且不因任何原因退还借款人。补借条服务不支付该交易服务费。
+</div> <h4 class="component-agreement__item bold"> 2、借款手续费 </h4> <div class="component-agreement__item">
+    借款人应按双方约定的标准向丙方支付交易手续费<!---->元，用于丙方向第三方支付公司支付手续费以及丙方的账户管理费。本协议生效的同时，借款人的该支付义务同时生效，该费用从出借人支付给借款人的款项中直接扣除，且不因任何原因退还借款人。
+</div> <div class="component-agreement__item"> 补借条服务不支付该借款手续费。</div> <h4 class="component-agreement__item bold"> 3、线上还款手续费（仅补借条服务有此费用） </h4> <div class="component-agreement__item"> 补借条服务如果通过有借平台还款，需要按丙方规定支付还款金额的5‰。如果通过线下方式还款则无此手续费。</div>
+        <div class="component-agreement__item no-indent"> 注意：有借平台保留单方面制定及调整上述费用标准的权利。
+    以上费用不影响借款双方使用有借平台上的其他服务时应向丙方支付的其他服务费用。</div></section> <section class="component-agreement__item no-indent"><h3 class="component-agreement__title no-indent">五、偿还方式</h3> <div class="component-agreement__item no-indent">
+    1、借款人必须通过有借平台偿还借款本息以及罚息、违约金等款项，但补借条服务除外。借款人必须按本协议的约定按时、足额偿还乙方的本金和利息，否则会对借款人的信用记录造成影响。还款日不受法定假日或公休日的影响，还款日前必须还款。
+</div> <div class="component-agreement__item no-indent">
+    2、补借条服务的，借款人可以通过线上或者线下的方式予以还款，线上是指借款人通过有借的账户系统将待还本息偿还到乙方的账户余额中，如果甲方采取此种还款方式，需按本协议前述约定向丙方支付线上还款手续费。
+</div> <div class="component-agreement__item no-indent">
+    如果借款人通过支付宝、微信或现金等线下方式将待还本息偿还给了出借人，借款人需要在有借平台上发起一个已还款提醒，出借人在收到该消息且核实已收到借款人的线下还款后，则可点击确认按钮以终结借条。如果乙方核实后发现没有收到甲方的线下还款，可以将该消息驳回或致电问询。
+</div> <div class="component-agreement__item no-indent">注意：如果甲方通过线下方式将本息偿还给了乙方，但未在有借平台上发起已还款提醒，则有借平台视为未还款，因此引起的一切后果由甲方自行承担。
+</div> <div class="component-agreement__item no-indent">
+    3、借款人不得迟于本协议第一条约定的借款期限届满当日（以下简称“还款日”）22:00将全部借款本金、利息存入其支付账户。借款人在此不可撤销地授权：自还款日0:00起安牛指定的第三方支付机构可随时将借款人支付账户的资金划转至出借人支付账户（经丙方转付），前述划转金额以本协议项下未偿还的借款本金、利息、罚息（如有）、逾期管理费（如有）
+        为限。出借人与借款人一致同意，自本协议生效之日起，出借人不得免除本协议项下借款人的部分或全部债务。
+</div> <div class="component-agreement__item no-indent"> 4、有借有权在还款日之前向借款人发出还款提示。</div></section> <section class="component-agreement__item no-indent"><h3 class="component-agreement__title no-indent">六、承诺与保证</h3> <div class="component-agreement__item no-indent bold">
+    1、出借人保证其所用于出借的资金来源合法，系出借人的自有资金，出借人是该资金的合法所有人，如果第三方对资金归属、合法性问题发生争议，由出借人自行负责解决。如出借人未能解决，则放弃享有其所出借款项所带来的利息收益。
+</div> <div class="component-agreement__item no-indent bold"> 2、出借人承诺其拥有非保本类金融产品投资的经历并熟悉互联网。</div> <div class="component-agreement__item no-indent bold"> 3、借款人承诺，不会违反中国的法律法规、将所借资金用于违规或非法用途，否则由此造成的损失全部由借款人承担。</div></section>
+    <section class="component-agreement__item"><h3 class="component-agreement__title no-indent">七、违约与还款能力降低</h3>
+    <h4 class="component-agreement__item bold"> 1、借款人行为符合以下情形中任意一种的即视为违约，包括： </h4> <div class="component-agreement__item"> （1）借款人交易到期未足额偿还借款本金、利息及相应费用的；</div> <div class="component-agreement__item"> （2）违反中国的法律法规、将所借资金用于违规或非法用途的；</div>
+        <div class="component-agreement__item"> （3）借款人提供虚假资料或隐瞒重要事实的。</div>
+    <h4 class="component-agreement__item bold"> 2、借款人行为符合以下情形中之任意一种即视为还款能力降低： </h4> <div class="component-agreement__item"> （1）在出借人以外任何第三方的其他借款、担保、赔偿、承诺或任何其他债务出现严重违约情况，影响或可能影响借款人还款能力的；</div>
+        <div class="component-agreement__item"> （2）部分或者全部丧失民事行为能力、死亡、被宣告死亡或者被宣告失踪，影响或可能影响借款人还款能力的；</div>
+    <div class="component-agreement__item">
+        （3）借款人被采取刑事强制措施，影响或可能影响借款人还款能力的；</div> <div class="component-agreement__item"> （4）借款人财产被没收、征用、查封、损坏、扣押、冻结的或借款人财产遭受重大损失，影响或可能影响借款人还款能力的；</div> <div class="component-agreement__item"> （5）出现任何其他影响或可能影响借款人还款能力的事件。</div>
+        <h4 class="component-agreement__item bold">
+    3、若借款人发生违约行为或者还款能力降低事件，或根据出借人/有借合理判断借款人可能发生本条第1款和第2款所述事件的，出借人有权委托安牛通过互联网在线和线下各种方式向借款人进行催收，出借人与借款人一致同意安牛有权采取下列任何一项、几项或全部措施予以债权救济： </h4> <div class="component-agreement__item"> （1）立即取消全部或部分借款；</div>
+        <div class="component-agreement__item"> （2）宣布借款全部提前到期，
+        借款人应立即偿还所有应付款，包括但不限于欠款本金、利息、罚息及其他各项相关费用等；
+    </div> <div class="component-agreement__item"> （3）解除本协议；</div> <div class="component-agreement__item">
+    （4）在符合法律、法规相关规定的情况下采取适当的方式对借款人进行电话催收、上门催收、信函催收、委托第三方催收、司法诉讼催收、通过电视、报刊等媒体进行公告催收等，以及向有关部门或者单位予以通报；
+</div> <div class="component-agreement__item"> （5）对借款人支付账户进行冻结、扣划等操作；</div> <div class="component-agreement__item"> （6）对拒不归还欠款的，在有借平台上向所有用户披露借款人的违约信息；</div> <div class="component-agreement__item"> （7）将借款人违约情况和个人资料提供给依法成立的个人征信机构；</div>
+        <div class="component-agreement__item"> （8）采取法律、法规以及本协议约定的其他救济措施。</div>
+    <div class="component-agreement__item no-indent"> 以上各项约定不影响出借人对借款人采取法律允许的任何催收措施及行动的权利与救济。出借人有权根据法律法规及本协议的约定向借款人进行催收。</div></section> <section class="component-agreement__item"><h3 class="component-agreement__title no-indent">八、罚息与费用</h3>
+        <div class="component-agreement__item no-indent bold"> 1、从还款日的次日计算罚息，
+    以截至当日未偿还借款本金利息之和为基数，每日按年化利率24%计收罚息。</div>
+    <div class="component-agreement__item no-indent bold">
+    2、借款人通过求借款或申请出借完成借款(注:不包括通过补借条完成借款)，未按期还款，借款人未按期足额偿还借款本金、利息和罚息的，借款人应按照下述计算方式向安牛支付逾期管理费：
+</div> <div class="component-agreement__item"> （1）自还款日次日起按“截至当日未偿还借款本金、利息与罚息之和×0.1%/天”的标准支付基础逾期管理费；</div> <div class="component-agreement__item">
+    （2）如借款人自还款日后第15日22:00前未足额偿还本金、利息和罚息的，借款人应在基础逾期管理费之外再按“截至逾期第16日未偿还借款本金、利息、罚息与基础逾期管理费之和×5%”的标准向安牛支付特别逾期管理费；如借款人自还款日后第29日22:00前未足额偿还本金、利息和罚息的，特别逾期管理费的金额调整为“截至逾期第30日未偿还借款本金、利息、罚息与基础逾期管理费之和×10%”。
+</div> <div class="component-agreement__item no-indent bold">
+    3、自还款日的次日起，借款人的每笔还款金额分为借款本金、利息、罚息与逾期管理费两个部分按比例偿还，两个部分占每笔还款金额的比例分别为：应还借款本金、利息、罚息的金额占应还借款本金、利息、罚息与应还逾期管理费总和之比；应还逾期管理费的金额占应还借款本金、利息、罚息与应还逾期管理费总和之比。
+</div> <div class="component-agreement__item no-indent"> 借款本金、利息、罚息的金额按照罚息、利息、借款本金的顺序依次偿还。</div></section> <section class="component-agreement__item"><h3 class="component-agreement__title no-indent">九、违约</h3> <div class="component-agreement__item">
+    甲已双方需保证其提供的信息和资料的真实性，不得提供虚假资料或隐瞒重要事实。提供虚假资料或者故意隐瞒重要事实的，构成违约，应承担违约责任；构成犯罪的，丙方将有权向相关国家机关报案，追究其刑事责任。
+</div> <div class="component-agreement__item">
+    如果甲方没有按照约定按时、足额偿还对乙方的本金和利息，则甲方按本协议的约定承担违约责任。丙方作为信息中介，不承担对乙方未收回本息部分的代偿责任。丙方拥有将甲方违约失信的相关信息在媒体披露的权利，并且丙方会将甲方违约信息录入有借平台黑名单以供他人查阅，并提供甲方的相关个人信息（包括但不局限于本人基础信息、紧急联系人信息常用联系号码、详细收货地址）给予乙方以供催收。</div></section>
+    <section class="component-agreement__item">
+    <h3 class="component-agreement__title no-indent">十、担保</h3> <div class="component-agreement__item no-indent bold"> 1、如果本协议所涉及的借贷交易有担保人，则适用本条款。</div> <div class="component-agreement__item no-indent bold"> 2、为担保本合同项下借款人债务的履行，保证人愿意为借款人提供保证。</div>
+        <div class="component-agreement__item no-indent bold">
+    3、本合同的保证方式为连带责任保证。保证债务范围包括但不限于：1）应向出借人支付的借款本金、利息、罚息、违约金、赔偿金、实现债权的费用（包括但不限于诉讼费用、律师费用、公证费用、执行费用等）以及因债务人违约而给本合同债权人造成的损失和其他所有应付费用。2）应向安牛支付的服务费、交易手续费、
+            线上还款手续费、逾期管理费、违约金、赔偿金、实现债权的费用（包括但不限于诉讼费用、律师费用、公证费用、执行费用等）
+    以及因债务人违约而给安牛造成的损失和其他所有应付费用。
+</div> <div class="component-agreement__item no-indent bold"> 4、本合同的保证期间为借款成功之日，至借款人清偿完毕借款协议项下的包括但不限于保证债务范围内的所有应付款项。</div> <div class="component-agreement__item no-indent bold">
+    5、担保人为借款人提供担保，借款人应向担保人支付担保费元。该费用于出借人向借款人支付借款时由有借平台直接扣留并转交担保人。借款人同意该费用支付方式。
+</div> <div class="component-agreement__item no-indent bold">
+    6、借款人未按借款协议的约定按时、足额偿还借款本金和利息时，有借平台会向担保人推送消息，告知借款逾期的事实同时限期担保人代替还款。担保人未能按通知要求代替还款，会对其信用记录造成影响。还款日不受法定假日或公休日的影响，还款日前必须还款。
+</div> <div class="component-agreement__item no-indent bold">
+    7、担保人在此不可撤销地授权：如其未能承担担保责任按要求代替借款人还款，安牛指定的第三方支付机构可随时将担保人支付账户的资金划转至出借人支付账户（经丙方转付），前述划转金额以本协议项下的担保债务金额为限。出借人与借款人一致同意，自本协议生效之日起，出借人不得免除本协议项下担保人的部分或全部责任。
+</div> <div class="component-agreement__item no-indent bold">
+    8、若主债权未受清偿，债权人在本合同约定的保证期间内要求保证人承担保证责任的，从债权人要求保证人承担保证责任之日起，保证债务开始起算并适用诉讼时效。
+</div></section> <section class="component-agreement__item"><h3 class="component-agreement__title no-indent">十一、债权转让</h3> <div class="component-agreement__item">
+    出借人有权将本协议项下的部分或全部债权转让给安牛（安牛根据债权情况决定是否接受）或有借平台上的其他注册用户，出借人委托安牛将债权转让事项通过向借款人在有借平台注册手机号码发送短信或平台信息推送的方式通知借款人。短信或平台信息推送一经发出即视为已通知借款人。
+</div> <div class="component-agreement__item"> 借款人同意，安牛将债权转让事项通知借款人时，可以不告知债权受让人的真实姓名，无论是否知晓债权受让人真实姓名，该债权转让均对借款人生效。</div> <div class="component-agreement__item"> 出借人转让债权后，本协议项下其他条款不受影响，债权受让人取代出借人享有本协议项下出借人的各项权利。</div>
+    <div class="component-agreement__item">
+    安牛同意接受出借人的债权转让的，按下一条“催收支持”执行。</div></section> <section class="component-agreement__item"><h3 class="component-agreement__title no-indent">十二、催收支持</h3> <div class="component-agreement__item">
+    借款人逾期60日未偿还借款的，经安牛同意，出借人可以委托安牛为其提供包括诉讼在内的催收服务，出借人可将本协议项下债权零对价转让给安牛，由安牛对借款人进行催收直至提起民事诉讼。上述诉讼所需费用（包括但不限于案件受理费、公告费、公证费等）在出借人与安牛签署债权转让协议时由安牛向债权人一次性收取。
+        出借人拒绝缴纳上述诉讼费用或缴纳不足视为出借人自动放弃了相应的权利，安牛将停止后续诉讼服务，造成的后果由出借人自行承担。
+</div> <div class="component-agreement__item"> 通过上述诉讼追偿回的金额扣除逾期管理费后，安牛将全部返还给出借人。</div> <div class="component-agreement__item"> 出借人转让债权后可随时以零元价格从安牛回购该债权。</div> <div class="component-agreement__item"> 上述债权转让的具体内容将由出借人与安牛另行签订协议约定。</div>
+        <div class="component-agreement__item">
+    上述债权转让由原债权人委托安牛通过向借款人有借平台注册手机号码发送短信或平台信息推送的方式通知借款人。短信或平台信息推送一经发出即视为已通知借款人。</div></section> <section class="component-agreement__item"><h3 class="component-agreement__title no-indent">十三、其他</h3> <div class="component-agreement__item">
+    本协议经甲、乙<span class="component-agreement__item">双</span>
+    方通过丙方有借平台以网络在线点击确认的方式签订，各方点击确认后本合同生效。由于有借平台的业务流程，担保人在点击确认本协议时可能出借人尚未确定，但担保人在此不可撤销地确认其仍愿意为借款人提供担保，且一旦出借人点击确认本协议，本协议同时自动生效，而且在本协议履行过程中担保人不会以确认本协议时出借人尚未确定为由免除自己的担保责任。
+    各方委托有借平台保管所有与本协议有关的书面文件或电子信息，且认可“有借”平台在未来发生的相关纠纷中向有关裁判机构提交该等文件信息的权利和证明争议事实的效力。
+</div> <div class="component-agreement__item"> 各方均确认，本协议的签订、生效和履行以不违反法律为前提。如果本协议中的任何一条或多条违反适用的法律，则该条将被视为无效，但该无效条款并不影响本协议其他条款的效力。</div> <div class="component-agreement__item"> 若甲方与丙方、乙方与丙方或甲乙丙<span class="component-agreement__item">三</span>方发生任何纠纷或争议，
+    首先应友好协商解决，协商不成的，同意将纠纷或争议提交丙方住所地有管辖权的人民法院，相关的诉讼费、律师代理费等因追索权利而发生的合理费用均由败诉方承担。
+</div> <div class="component-agreement__item">
+    若甲方与乙方发生任何纠纷或争议，首先应友好协商解决，协商不成的，同意将纠纷或争议提交提起诉讼一方住所地有管辖权的人民法院，相关的诉讼费、律师代理费等因追索权利而发生的合理费用均由败诉方承担。
+</div> <div class="component-agreement__item"> 本协议中所使用的定义，除非另有规定，否则应适用有借平台释义规则，有借平台对本文定义享有最终解释权。</div></section> <div class="stamp"><img src="./static/img/stamp.24d865c.png" class="seal-size" style="display: none;"> <div class="component-agreement__item bold">甲方（借款人）：</div>
+        <div class="component-agreement__item bold">乙方（出借人）：</div>
+    <div class="component-agreement__item bold">丙方（居间服务商）：<span class="component-agreement__item bold">浙江安牛科技有限公司</span></div> <div class="component-agreement__item bold">签订日期：--</div></div></div></div> <div><!----></div> <div><!----></div> <div><!----></div></div></div></div> <!----></div>
+<script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script src="../Content/js/scroll.js"></script>
+<script src="../Content/js/iosiscroll.js"></script>
+<script src="../Content/js/iosSelect.js"></script>
+<script src="../Content/js/wyck.js"></script>
+<script src="../Content/js/layer-mobl.js"></script>
+<script>
+
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    var bankrz=0;
+    var yyrz=0;
+
+    $.ajax({
+        type : "GET",
+        url : localStorage.url+"/loan/toApplyLoan",
+        dataType : 'json',
+        async:false,
+        contentType : "application/json",
+        data :{
+            id:localStorage.id
+        },
+        success : function(datas) {
+            console.log(datas);
+            bankrz=datas.rz[0];
+            yyrz=datas.rz[1];
+            if(datas.rz[0]=="1"){
+                $("#qbk").addClass("ybd").html("已绑定")
+            }
+            if(datas.rz[1]=="1"){
+                $("#qrz").addClass("ybd").html("已绑定")
+            }
+            if(datas.rz[0]=="0"||datas.rz[1]=="0"){
+                $(".top-no-fade").show();
+            }
+            $.each(datas.rateList,function (index,el) {
+                //var str=`{'id': `+index+`, 'value': `+datas.rateList[index].rate+`}`
+                var obj={};
+                obj.id=index;
+                obj.value=Math.floor(datas.rateList[index].rate*100)+"%";
+                data2.push(obj);
+            });
+            $.each(datas.loanList,function (index,el) {
+                //var str=`{'id': `+index+`, 'value': `+datas.rateList[index].rate+`}`
+                var obj={};
+                obj.id=datas.loanList[index].id;
+                obj.value=Math.floor(datas.loanList[index].loan_time)+"天";
+                data5.push(obj);
+            });
+            $.each(datas.scRatelist,function (index,el) {
+                var obj={};
+                obj.id=datas.scRatelist[index].id;
+                obj.value=Number(datas.scRatelist[index].sc_rate*100).toFixed(0)+"%";
+                data6.push(obj);
+            });
+            $.each(datas.scMin,function (index,el) {
+                var obj={};
+                obj.id=datas.scMin[index].id;
+                obj.value=Number(datas.scMin[index].scmin)+"元";
+                data7.push(obj);
+            });
+            //loanMoneys
+            $.each(datas.loanMoneys,function (index,el) {
+                var obj={};
+                obj.id=datas.loanMoneys[index].id;
+                obj.value=datas.loanMoneys[index].loanmoney+"元";
+                console.log(datas.loanMoneys[index].loanmoney)
+                data10.push(obj);
+            });
+           console.log(data6);
+            $("#loading").hide();
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+    $("html,.jkytycbox").css("height",winH);
+    $(function () {
+        $(".icon-close-pure").on("click",function () {
+            $(".component-modal").hide();
+        });
+        $("#xybtn").on("click",function () {
+            $(this).parent().toggleClass("xz");
+            if($(".xybtn").hasClass("xz")){
+                $("#qrfbbtn").removeClass("jybtn")
+            }else {
+                $("#qrfbbtn").addClass("jybtn")
+            }
+        });
+        $("#xywz").on("click",function () {
+            $(".jsxy").show();
+        });
+        $("#jkytsmbtn").on("click",function () {
+            $(".jkytycbox").show();
+        });
+        $("#savebtn").on("click",function () {
+            $(".jkytycbox").hide();
+            $("#jkytsm").html($("#showBank4").html());
+        });
+        $(".jsbtn1").on("click",function () {
+            $(".component-auth-step").show();
+            $(this).hide();
+        });
+        $(".jsbtn2").on("click",function () {
+            $(".component-auth-step").hide();
+            $(".jsbtn1").show();
+        });
+
+        $("#qbk").on('click',function () {
+            if($(this).hasClass("ybd")){
+                return false
+            }else {
+                window.location.href="BankCard-1.html"
+            }
+        });
+        $("#qrz").on('click',function () {
+            if($(this).hasClass("ybd")){
+                return false
+            }else {
+                window.location.href="CreditList.html"
+            }
+        })
+    });
+
+    function subimt() {
+//        if(bankrz=="0" || yyrz=="0"){
+//            $(".top-no-fade").show();
+//            return
+//        }
+        if($("#showBank10").html()=="请选择"){
+            layer.open({
+                content:"请选择出借金额",
+                time:1
+            });
+            return false;
+        }else if($("#showBank5").html()=="请选择"){
+            layer.open({
+                content:"请选择最低出借时长",
+                time:1
+            });
+            return false;
+        }else if($("#showBank9").html()=="请选择"){
+            layer.open({
+                content:"请选择最长出借时长",
+                time:1
+            });
+            return false;
+        } else if($("#bankId5").val()>=$("#bankId").val()){
+            layer.open({
+                content:"出借时长选择错误",
+                time:1
+            });
+            return false;
+        }
+        else if($("#showBank2").html()=="请选择"){
+            layer.open({
+                content:"请选择还款年利率",
+                time:1
+            });
+            return false;
+        }else if($("#showBank6").html()=="请选择"){
+            layer.open({
+                content:"请选择服务费率",
+                time:1
+            });
+            return false;
+        }else if($("#showBank7").html()=="请选择"){
+            layer.open({
+                content:"请选择最低额度",
+                time:1
+            });
+            return false;
+        }
+        var param2={
+            luser_id:localStorage.id,
+            loanmoney_id:$("#bankId10").val(),
+            way:$("#showBank1").html(),
+            yrate_id:$("#bankId2").val(),
+            sc_rate_id:$("#bankId6").val(),
+            scmin_id:$("#bankId7").val(),
+            isvisible:$("#bankId3").val(),
+            remark:$("#text").val(),
+            minloan_time_id:$("#bankId5").val(),
+            maxloan_time_id:$("#bankId9").val(),
+        };
+        console.log(param2);
+        $.ajax({
+            type : "GET",
+            url :localStorage.url+"/loan/applyLoan",
+            dataType : 'json',
+            async: false,
+            contentType : "application/json",
+            data :param2,
+            success : function(datas) {
+                console.log(datas);
+                if(datas.data=="1"){
+                    layer.open({
+                        shadeClose: false,
+                        content: '提交成功,请耐心等待后台审核~~',
+                    });
+                    setTimeout(function () {
+                        window.location.href="index.html"
+                    },2000)
+                }
+            },
+            error : function(err) {
+                console.log(err);
+            }
+        });
+    }
+</script>
+</body>
+</html>

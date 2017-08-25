@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>登录注册</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .xybtn {
+            width: 230px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap" style="background-color: #ffffff">
+        <ul class="nav">
+            <li class="line active" data-id="1">登录</li>
+            <li data-id="2">注册</li>
+        </ul>
+        <div>
+        <div id="login">
+            <ul class="login">
+                <li><label class="sjh"></label><input placeholder="请输入手机号" type="tel" id="dltel"></li>
+                <li><label class="sjmm"></label><input placeholder="请输入密码" type="password" id="dlpass" style="width: 10rem"> <a class="wjmm" href="wjmm.html">忘记密码</a></li>
+            </ul>
+            <div class="xybtn xz" >
+                <span id="xybtn"></span>
+                <p id="xywz" class="xywz">已阅读并同意《易信借用户使用协议》</p>
+            </div>
+            <a href="javascript:;" class="dlbtn " id="dlbtn" onclick="denglu()">登录</a>
+        </div>
+        <div id="login2" class="dn">
+            <ul class="login">
+                <li><label class="sjh"></label><input placeholder="请输入手机号" type="tel" id="zctel" maxlength="11" ></li>
+                <li><label class="sjmm"></label><input placeholder="6-18位字母数字组合" type="password" id="zcpass" maxlength="18"></li>
+                <li><label class="sjmm"></label><input placeholder="请输入验证码" type="tel" id="code" maxlength="4"><input onclick="sendCode()" type="button" value="发送验证码" class="fsyzmbtn" id="btnSendCode"></li>
+            </ul>
+            <div class="xybtn xz" >
+                <span id="xybtn2"></span>
+                <p id="xywz2" class="xywz">已阅读并同意《易信借用户使用协议》</p>
+            </div>
+            <a href="javascript:;" class="dlbtn xybtn2" id="zcbtn">注册</a>
+        </div>
+        </div>
+    </div>
+    <div class="component-modal component-agreement dn"><div class="component-modal__mask"></div> <div class="component-modal__container" style="width: 92%;"><i class="component-modal__close iconfont icon-close-pure"></i> <!----> <div class="component-modal__main"> <div class="component-agreement__header">用户使用许可协议</div>  <div class="wrapper not-loan"><div><!----></div> <div><div class="component-agreement__list"><div class="component-agreement__item no-indent center">（版本号:v20170401）</div> <div class="component-agreement__item no-indent bold">重要提示：</div> <div class="component-agreement__item bold">尊敬的客户：为了维护您的权益，请在签署本协议前，仔细阅读本协议各条款，关注您在此用户使用协议中的权利、义务。</div> <div class="component-agreement__item">欢迎阅读浙江安牛科技有限公司（下称“安牛”、“我们”）发布的“用户使用许可协议”(下称“本协议”)。本协议是关于您（下称“用户”、“您”）在使用易信借借贷平台手机软件（下称“易信借”）时，约定您和安牛之间权利义务关系的有效协议，本许可协议具有合同效力。</div> <div class="component-agreement__item">感谢您使用我们提供的产品和服务，用户在使用这些服务前，请务必认真阅读本协议中的各项条款（未成年人审阅时应得到法定监护人的陪同），如您拒绝遵守这些条款，请退出网站、移动应用程序或其他服务，并不以任何方式使用它们。</div> <div class="component-agreement__item">本协议内容包括以下条款及已经发布的或将来可能发布的各类规则。所有规则为协议不可分割的一部分，与协议正文具有同等法律效力。本协议是由用户与安牛共同签订的，适用于用户在易信借产品的全部活动。在用户注册时，用户已经阅读、理解并接受本协议的全部条款及各类规则，并承诺遵守中国现行的法律、法规、规章及其他政府规定，如有违反而导致任何法律后果的发生，用户将以自己的名义独立承担所有相应的法律责任。</div> <div class="component-agreement__item">用户确认本许可协议后，本许可协议即在用户和安牛之间产生法律效力。用户按照安牛规定的注册程序成功注册为用户，即表示同意并签署了本许可协议。本许可协议不涉及用户与安牛的其他用户或合作伙伴之间因网上交易而产生的法律关系及法律纠纷，但用户在此同意将全面接受和履行与安牛其他用户或合作伙伴在安牛签订的任何电子法律文本，并承诺按该法律文本享有和/或放弃相应的权利、承担和/或豁免相应的义务。</div> <div class="component-agreement__title">一.信息采集</div> <div class="component-agreement__item">用户在此不可撤销地同意并授权安牛收集以下个人信息：</div> <div class="component-agreement__item">1)在用户注册易信借账号时，用户根据易信借要求提供个人注册信息，包括但不限于姓名、性别、身份证号码、住址、联系方式等；</div> <div class="component-agreement__item">2)在用户使用易信借产品服务，或访问易信借产品时，安牛自动接收并记录的用户的浏览器和计算机上的信息，包括但不限于用户的宽带类型、IP地址、浏览器的类型、使用的语言、访问日期和时间、软硬件特征信息及用户需求的网页记录等数据；</div> <div class="component-agreement__item">3)用户使用易信借产品时进行绑定银行卡、导入通信录等操作所提供银行卡、通信录、通讯运营商等相关资料，具体如下：</div> <div class="component-agreement__item">A. 网银相关资料：包括但不限于身份证号、客户号、用户名、卡片信息等；</div> <div class="component-agreement__item">B. 通讯运营商基础资料：登记姓名、手机号码、归属省份、话费余额、套餐信息（部分）、账单信息、开户日期（部分）、本地通讯录，包括姓名、电话号码、公司（如有）、电子邮件（如有）、地址（如有）、个人资料（如有）、备注（如有）；</div> <div class="component-agreement__item">C. 通讯运营商其他相关资料：通话记录相关信息（包括但不限于通话发生时间、通话发生地、主叫/被叫、通话对方号码、通话时长（秒）、本地漫游长途属性）、短信记录相关信息（包括但不限于服务类型、短信发送/接受时间、对方号码）等；</div> <div class="component-agreement__item">D. 其他经用户明确授权的相关资料，如用户于其他第三方平台的账户信息、交易记录等；</div> <div class="component-agreement__item">4) 在用户使用安牛提供的贷款相关业务时，安牛将通过用户提供的征信账户名信息向依法设立的征信机构查询用户的相关信用信息，包括但不限于任何信用分、信用报告、能够联系到用户的实体地址、电子邮件地址、电话号码；</div> <div class="component-agreement__item">5)安牛为了更好地单独或与商业伙伴合作为用户提供服务，经用户授权通过合法途径从商业伙伴处获取的其他用户个人信息。</div> <div class="component-agreement__item">6)安牛不会采集用户的宗教信仰、基因、指纹、血型、疾病和病史信息以及法律、行政法规规定禁止采集的其他个人信息。</div> <div class="component-agreement__title">二、信息使用</div> <div class="component-agreement__item">安牛将以高度的勤勉、审慎义务对待用户个人信息，用户不可撤销地授权并同意安牛将收集到的用户信息用于以下用途：</div> <div class="component-agreement__item">1) 将信息进行整合和处理，以便更好地为用户提供服务，并依此对安牛服务进行改进；</div> <div class="component-agreement__item">2) 比较信息的准确性并与第三方进行验证，例如，将用户向我们提交的身份信息与身份验证的服务机构进行验证；</div> <div class="component-agreement__item">3) 为服务用户的目的，安牛可能通过使用用户的个人信息，向用户提供用户感兴趣的通知、营销活动及其他商业性电子信息；</div> <div class="component-agreement__item">4) 经用户明确同意并授权的其他用途；</div> <div class="component-agreement__item">5) 除本协议明确阐述和相关法律规定外，安牛不会向任何无关第三方提供、出售、出租、分享或交易用户的个人信息；</div> <div class="component-agreement__item">6) 安牛亦不允许任何第三方以任何手段收集、编辑、出售或者传播用户的个人信息。任何安牛用户如从事上述活动，一经发现，安牛有权立即终止与该用户的许可协议。</div> <div class="component-agreement__title">三、信息保护</div> <div class="component-agreement__item">安牛致力于取得和维护用户对我们的信任，因此安牛会使用商业上合理的技术和其他措施，防止用户的个人信息的丢失和被盗用。为尽可能地保护用户的个人信息安全，安牛提请用户注意：</div> <div class="component-agreement__item">1)&nbsp;请妥善保管用户的用户名及密码信息。安牛将通过对用户密码进行加密等安全措施确保用户的信息不丢失，不被滥用和变造。尽管有前述安全措施，但同时也请用户注意在信息网络上不存在“完善的安全措施”，用户信息仍存在丢失 、被盗用的可能，非因安牛过错发生上述情况，安牛不承担任何责任。</div> <div class="component-agreement__item">2) 基于防火墙或其他安全软件可能发生故障，或按照当前商业上可以采取的安全手段也难以避免或及时消除的故障及破坏，将可能导致用户信息遭到外部访问、窃取或删除，此等情形下安牛不承担相应的责任。</div> <div class="component-agreement__item">3) 因不可抗力所导致的用户资料及信息泄露（包含但不限于黑客攻击、第三方导致的系统缺陷等），安牛不承担相应的责任。</div> <div class="component-agreement__title">四、信息披露</div> <div class="component-agreement__item">安牛将对用户提供的信息严格保密，除具备下列情形之一外，不会向任何外部机构披露：</div> <div class="component-agreement__item">1)&nbsp; 经过用户事先同意而披露，即在获得用户同意的情况下，安牛才会对外披露用户的个人信息；</div> <div class="component-agreement__item">2)&nbsp; 应法律法规或公权力部门要求而披露，即安牛可能会根据法院、政府部门、上级监管机构等执法机构或法律法规的要求向其披露用户的个人信息；</div> <div class="component-agreement__item">3)&nbsp; 当安牛涉及合并、收购或资产出售等重大交易时，安牛有权依据交易的需要将用户信息提供给交易相对方及交易各方聘请的各中介机构(包括但不限于律师、会计师等)，会在任何个人信息进行转让或受其他隐私权政策约束之前，继续确保其保密性并对受到影响方进行及时通知。</div> <div class="component-agreement__item">4) 保护安牛和其他方利益，即安牛可能会为了保护安牛自身，安牛员工和客户、安牛合作伙伴和其他公众的合法权利、利益和安全而披露用户的个人信息。</div> <div class="component-agreement__item">5) 建立信用体系，用户同意并授权安牛向依法设立的第三方征信机构提交用户在贷款业务中产生的相关信息，包括个人基本信息、借贷交易信息、反映个人信用的其他信息，记录在征信机构建设的个人信用信息数据库中。</div> <div class="component-agreement__item">用户同意并授权安牛将用户的不良信息发送征信机构且不再另行通知。</div> <div class="component-agreement__title">五、第三方说明</div> <div class="component-agreement__item">为了更好地为用户提供服务，安牛会展示商业伙伴等第三方网站链接和信息，当用户查看第三方创建的网页或使用第三方开发的应用程序时，请务必注意这些第三方主体拥有不同于安牛的信息保护政策。安牛会尽商业上的合理努力去要求该第三方对用户的个人信息采取保护措施，但安牛无法保证该第三方一定会按照安牛的要求采取保护措施，亦不对该第三方的行为及后果承担任何责任。如果用户发现这些第三方创建的网页或第三方开发的应用程序存在风险时，建议用户终止相关操作以保护自身的合法权益。</div> <div class="component-agreement__title">六、信息存储和交换</div> <div class="component-agreement__item">安牛收集的有关用户的信息和资料将保存在安牛的服务器上，这些信息和资料可能传送至用户所在国家、地区或安牛收集信息和资料所在地的境外并在境外被访问、存储和展示。</div> <div class="component-agreement__title">七、条款更新及用户关注义务</div> <div class="component-agreement__item">安牛收集的有关用户的信息和资料将保存在安牛的服务器上，这些信息和资料可能传送至用户所在国家、地区或安牛收集信息和资料所在地的境外并在境外被访问、存储和展示。</div> <div class="component-agreement__title">六、信息存储和交换</div> <div class="component-agreement__item">安牛收集的有关用户的信息和资料将保存在安牛的服务器上，这些信息和资料可能传送至用户所在国家、地区或安牛收集信息和资料所在地的境外并在境外被访问、存储和展示。</div> <div class="component-agreement__title">七、条款更新及用户关注义务</div> <div class="component-agreement__item">1) 用户在此确认知悉并同意，安牛有权根据需要不时地制定、修改本协议或各类规则，如本协议及规则有任何变更，安牛将将采用在网页公告、App推送或其他方式通知用户该修改、增加或删减的内容，经修订的协议、规则一经公布后，立即自动生效。用户应不时地注意本协议及附属规则地变更，若用户不同意相关变更，安牛有权不经任何告知终止、中止本许可协议或者限制用户进入易信借产品的全部或者部分板块且不承担任何法律责任。</div> <div class="component-agreement__item">2) 用户有义务不时关注并阅读最新版的协议及网站公告、App推送通知等。如用户不同意更新后的协议，可以且应立即停止接受安牛依据本协议提供的服务。</div> <div class="component-agreement__title">八、法律管辖和适用</div> <div class="component-agreement__item">本协议的订立、执行和解释及争议的解决均应适用在中华人民共和国大陆地区适用之有效法律（但不包括其冲突法规则）。如发生本协议与适用之法律相抵触时，则这些条款将完全按法律规定重新解释，而其它有效条款继续有效。若用户和安牛就本协议内容或其执行发生任何争议，双方应尽力友好协商解决；协商不成时，用户在此完全同意将纠纷或争议提交安牛所在地之杭州市西湖区人民法院管辖。</div> <div class="component-agreement__title">九、其他</div> <div class="component-agreement__item">1)安牛仅在用户接受本协议条款并依此提供个人信息且授权安牛按照上述条款的规定获取用户信息的基础上提供服务，部分个人信息提供需要配合用户“绑定银行卡”、“添加相关账号”的操作进行，如用户不同意本协议条款或不同意进行相应操作，则用户将无法使用安牛全部服务或相应部分服务；</div> <div class="component-agreement__item">2)如果本协议中任何一条被视为废止、无效或因任何理由不可执行，该条应视为可分的且并不影响任何其余条款的有效性和可执行性。</div> <div class="component-agreement__item">3)用户如需更正所提供的个人信息，或希望停止接受安牛网络提供的服务，或对本协议有任何疑问，请通过应用内的用户反馈功能联系安牛处理。</div></div></div> <div><!----></div> <div><!----></div></div></div></div> <!----></div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+    <script src="../Content/js/layer-mobl.js"></script>
+    <script>
+        var url="http://192.168.199.136:8080/daiqianlai";
+        var Code="";
+//        let urs=window.location.search;
+//        let strs=urs.substring(1);
+//        let silp=strs.split('&');
+//        let res={};
+//        for (let i=0;i<silp.length;i++){
+//            res[silp[i].split("=")[0]]=silp[i].split("=")[1];
+//        }
+//        console.log(res);
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+        $(".nav li").on('click',function () {
+            var id=$(this).attr("data-id");
+            $(this).addClass("active").siblings().removeClass("active");
+            if(id==1){
+                $('#login').show().siblings().hide();
+            }else {
+                $('#login2').show().siblings().hide();
+            }
+        })
+        $("#xybtn2,#xybtn").on("click",function () {
+            $(this).parent().toggleClass("xz");
+            if($(this).parent().hasClass("xz")){
+                $(".dlbtn").removeClass("jybtn")
+            }else {
+                $(".dlbtn").addClass("jybtn")
+            }
+        });
+        $(".xywz").on("click",function () {
+            $(".component-modal").show();
+        })
+        $(".component-modal__close").on("click",function () {
+            $(".component-modal").hide();
+        })
+
+
+    });
+    var wait=60;
+    var o=document.getElementById("btnSendCode");
+    function time() {
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            o.value="发送验证码";
+            wait = 60;
+        } else {
+            o.setAttribute("disabled", true);
+            o.value="重新发送(" + wait + ")";
+            wait--;
+            setTimeout(function() {
+                    time();
+                },
+                1000)
+        }
+    }
+    $('#zcbtn').on('click',function () {
+       if($(this).hasClass("jybtn")){
+           return false
+       }else {
+           zhuce();
+       }
+
+    });
+
+    //发送验证码
+    function sendCode() {
+        var tel=$("#zctel").val();
+        if(tel==""){
+            layer.open({
+                content:"手机号不能为空!",
+                time:1
+            });
+            return false
+        }else if(!/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i.test(tel)){
+            layer.open({
+                content:"请检查手机号输入!",
+                time:1
+            });
+            return false
+        }
+        $.ajax({
+            type : "GET",
+            url : url+"/login/chekCode",
+            dataType : 'json',
+            async: true,
+            contentType : "application/json",
+            data :{
+                phonenum:tel,
+                type:1
+            },
+            success : function(ro) {
+                if(ro.code == 200){
+                    if(ro.data=="2"){
+                        layer.open({
+                            content:"该手机号已注册!",
+                            time:1
+                        });
+                        return false
+                    }else if(ro.data=="1"){
+                        Code=ro.msg;
+                        console.log(ro.msg)
+                    }
+                    time();
+
+                }
+            },
+            error : function(err) {
+                alert(err);
+            }
+        });
+    }
+
+    //点击注册按钮
+   function zhuce() {
+        var tel=$("#zctel").val();
+        var pass=$("#zcpass").val();
+        var code=$("#code").val();
+       console.log(pass)
+       if(tel==""){
+           layer.open({
+               content:"手机号不能为空!",
+               time:1
+           });
+           return false
+       }else if(!/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i.test(tel)){
+           layer.open({
+               content:"请检查手机号输入!",
+               time:1
+           });
+           return false
+       }else if(pass==""||pass.length<6){
+           layer.open({
+               content:"请检查密码输入!",
+               time:1
+           });
+           return false
+       }else if(code==""||code.length!=4||code!=Code){
+            layer.open({
+                content:"请检查验证码输入!",
+                time:1
+            });
+            return false
+        }
+        console.log(tel+code);
+        console.log(pass);
+        $.ajax({
+            type : "GET",
+            url : url+"/login/insertUser",
+            dataType : 'json',
+            async: true,
+            contentType : "application/json",
+            data :{
+                phonenum:tel,
+                pwd:pass,
+                yzm:code
+            },
+            success : function(ro) {
+                console.log(ro);
+                if(ro.code == 200 && ro.data=="1"){
+                    layer.open({
+                        content:"注册成功~可以登录啦~",
+                        time:1
+                    });
+                    setTimeout(function () {
+                        location.reload();
+                    },1000)
+                    //console.log(ro)
+                    //location.reload();
+                }
+            },
+            error : function(err) {
+                alert(err);
+            }
+        });
+    }
+
+    function denglu() {
+        var tel=$("#dltel").val();
+        var pass=$("#dlpass").val();
+        if(tel==""){
+            layer.open({
+                content:"手机号不能为空!",
+                time:1
+            });
+            return false
+        }else if(!/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i.test(tel)){
+            layer.open({
+                content:"请检查手机号输入!",
+                time:1
+            });
+            return false
+        }else if(pass==""||pass.length<6){
+            layer.open({
+                content:"请检查密码输入!",
+                time:1
+            });
+            return false
+        }
+        $.ajax({
+            type : "GET",
+            url : url+"/login/checkLogin",
+            dataType : 'json',
+            async: true,
+            contentType : "application/json",
+            data :{
+                phonenum:tel,
+                pwd:pass
+            },
+            success : function(ro) {
+                if(ro.code == 200){
+                    if(ro.data=="0"){
+                        layer.open({
+                            content:"密码错误!",
+                            time:1
+                        });
+                        return false
+                    }else if(ro.data=="2"){
+                        layer.open({
+                            content:"该手机号未注册请先注册!",
+                            time:1
+                        });
+                        return false
+                    }else{
+                        layer.open({
+                            content:"登录成功~",
+                            time:1
+                        });
+                        localStorage.id=ro.data.id;
+                        localStorage.phonenum=ro.data.phonenum;
+                        window.location.href="my.html";
+                    }
+                }
+            },
+            error : function(err) {
+                alert(err);
+            }
+        });
+    }
+</script>
+</body>
+</html>

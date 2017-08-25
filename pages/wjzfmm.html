@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>忘记支付密码</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+
+</head>
+<body>
+    <div class="wrap">
+        <div class="user-bind-card-verified">
+            <ul class="form-box">
+                <li class="form__item detail"><span class="form__key">真实姓名</span>
+                    <div class="form__value"><input type="text" placeholder="请输入姓名" id="name"></div>
+                </li>
+                <li class="form__item"><span class="form__key">身份证号</span>
+                    <div class="form__value"><input type="tel" placeholder="请输入身份证号" id="sfnum"></div>
+                </li>
+                <li class="form__item"><span class="form__key">支付密码</span>
+                    <div class="form__value"><input type="tel" placeholder="请输入新支付密码(6位数字)" maxlength="6" id="pass1"></div>
+                </li>
+                <li class="form__item"><span class="form__key">确认支付密码</span>
+                <div class="form__value"><input type="tel" placeholder="确认支付密码" maxlength="6" id="pass2"></div>
+            </li>
+            </ul>
+            <div class="bind-card-button"><span class="qrfbbtn" onclick="submit()">提交</span></div>
+            <p class="bind-explain">易信借为您的信息提供安全加密，不会泄漏给第三方</p>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+    <script src="../Content/js/layer-mobl.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+
+
+    });
+    function submit() {
+        var name=$("#name").val();
+        var sfz=$("#sfnum").val();
+        var pass1=$("#pass1").val();
+        var pass2=$("#pass2").val();
+        if(name==""||name.length==0){
+            layer.open({
+                content:"请输入姓名~",
+                time:1
+            });
+            return
+        }else  if(!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(sfz)){
+            layer.open({
+                content:"身份证输入有误~",
+                time:1
+            });
+            return
+        }else if(pass1=="" || !/^\d{6}$/.test(pass1)){
+            layer.open({
+                content:"请检查支付密码输入错误~",
+                time:1
+            });
+            return
+        }else if(pass2!=pass1){
+            layer.open({
+                content:"两次输入的支付密码不一致~",
+                time:1
+            });
+            return
+        }
+        $.ajax({
+            type : "GET",
+            url : localStorage.url+"/me/forgetPWD",
+            dataType : 'json',
+            async: false,
+            contentType : "application/json",
+            data :{
+                id:localStorage.id,
+                name:name,
+                idcard:sfz,
+                pay_pwd:pass1
+            },
+            success : function(datas) {
+                console.log(datas);
+                if(datas.data=="1"){
+                    layer.open({
+                        content:"修改成功~",
+                        time:2
+                    });
+                    setTimeout(function () {
+                        history.back(-1)
+                    },1000)
+                }else  if(datas.data=="2"){
+                    layer.open({
+                        content:"姓名与注册时的姓名不一致",
+                        time:1
+                    });
+                }else  if(datas.data=="3"){
+                    layer.open({
+                        content:"身份证与注册时不一致",
+                        time:1
+                    });
+                }
+
+            },
+            error : function(err) {
+                //console.log(err);
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>银行卡实名认证</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+
+</head>
+<body>
+    <div class="wrap">
+        <div class="user-bind-card-verified">
+            <ul class="steps">
+                <li class="steps__item active"><span>1</span>
+                    <p>实名认证</p></li>
+                <li class="steps__item"><span>2</span>
+                    <p>银行卡认证</p></li>
+                <li class="steps__item"><span>3</span>
+                    <p>设置交易密码</p></li>
+            </ul>
+            <p class="bind-card__tips">请保证本人信息真实性，否则会影响您的信用报告，导致无法借款或出借</p>
+            <ul class="form-box">
+                <li class="form__item detail"><span class="form__key">真实姓名</span>
+                    <div class="form__value"><input type="text" placeholder="请输入姓名"></div>
+                </li>
+                <li class="form__item"><span class="form__key">身份证号</span>
+                    <div class="form__value"><input type="text" placeholder="请输入身份证号"></div>
+                </li>
+                <li class="form__item"><span class="form__key">银行卡号</span>
+                    <div class="form__value"><input type="tel" placeholder="请输入银行储蓄卡卡号"></div>
+                </li>
+                <li class="form__item"><span class="form__key">银行预留手机号</span>
+                    <div class="form__value"><input type="tel" placeholder="请输入手机号"></div>
+                </li>
+            </ul>
+            <div class="bind-card-button"><span class="qrfbbtn">下一步</span></div>
+            <p class="bind-explain">贷来钱为您的信息提供安全加密，不会泄漏给第三方</p>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+            $(".qrfbbtn").on('click',function () {
+                window.location.href="BankCard-2.html"
+            });
+
+    });
+
+</script>
+</body>
+</html>

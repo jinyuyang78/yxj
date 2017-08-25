@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>银行卡认证</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+
+</head>
+<body>
+    <div class="wrap">
+        <div class="user-bind-card-verified">
+            <ul class="steps">
+                <li class="steps__item active"><span>1</span>
+                    <p>实名认证</p></li>
+                <li class="steps__item active"><span>2</span>
+                    <p>银行卡认证</p></li>
+                <li class="steps__item"><span>3</span>
+                    <p>设置交易密码</p></li>
+            </ul>
+            <p class="bind-card__tips">请保证本人信息真实性，否则会影响您的信用报告，导致无法借款或出借</p>
+           <p class="yhkxx">银行卡信息<span>中国工商银行</span></p>
+            <ul class="yhkinfobox">
+                <li>持卡人姓名<span>张军</span></li>
+                <li>银行卡卡号<span>6222 **** **** **** 689</span></li>
+                <li style="border: none">银行卡类型<span>借记卡</span></li>
+            </ul>
+
+            <ul class="yztel">
+                <li style="margin-bottom: 10px"><label>手机号</label><input type="tel" placeholder="请输入银行预留手机号"></li>
+                <li><label>验证码</label><input type="tel" placeholder="请输入验证码" style="width: 10rem"><input type="button" class="fsbtn" style="width: 4rem" value="发送"></input></li>
+            </ul>
+            <div class="bind-card-button"><span class="qrfbbtn" id="qrfbbtn">下一步</span></div>
+            <p class="bind-explain">贷来钱为您的信息提供安全加密，不会泄漏给第三方</p>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+            $("#qrfbbtn").on('click',function () {
+                window.location.href="BankCard-3.html"
+            });
+
+    });
+
+</script>
+</body>
+</html>

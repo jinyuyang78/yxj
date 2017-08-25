@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>出借详情</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+</head>
+<body>
+<div id="loading">
+    <img src="../Content/imgs/kbloading.gif">
+</div>
+    <div class="wrap">
+        <div class="loan-detail-header">
+            <div class="loan-detail-user">
+                <span class="loan-detail-user__avatar">
+                    <img id="img"></span>
+                <div class="loan-detail-user__info"><p class="name"><span id="name">刘*生</span></p>
+                    <p id="phone">188****6653</p></div>
+                <div class="user-operation">
+                    <!--<div class="user-operation__item">-->
+                        <!--<span class="user-operation__logo contact"></span>-->
+                        <!--<p class="font-caption">加联系人</p>-->
+                    <!--</div>-->
+                    <div class="user-operation__item">
+                        <span class="user-operation__logo report"></span>
+                        <p class="font-caption" style="color: #28cad6">信用报告 &gt;</p>
+                    </div>
+                </div>
+            </div>
+            <div class="loan-detail-data">
+                <ul class="loan-detail-money__list">
+                    <li class="loan-detail-money__item">
+                        <span class="persent" id="dsje">700.00</span>
+                        <p>待收金额</p>
+                    </li>
+                    <li class="loan-detail-money__item">
+                        <span class="persent" id="dhje">0.00</span>
+                        <p>待还金额</p>
+                    </li>
+                    <li class="loan-detail-money__item">
+                        <span class="persent" id="cjcs">0</span>
+                        <p>借到次数</p>
+                    </li>
+                </ul>
+                <div class="loan-detail-button">负债详情 &gt;</div>
+            </div>
+        </div>
+        <div class="loan-detail-main">
+            <div class="loan-detail-number">
+                <p class="loan-detail-number__number">编号:201708030200169471</p>
+            </div>
+            <div class="loan-detail-money">
+                <div class="loan-detail-money__total">
+                    <p class="text">借款总额</p>
+                    <span class="number purple"><span id="jkze">1000-1000</span>元</span>
+                </div>
+                <ul class="loan-detail-money__list" style="border-top: 1px solid  rgba(0,0,0,.12)">
+                    <li class="loan-detail-money__item">
+                        <span class="persent" id="time">0天~0天</span>
+                        <p>可借时长</p>
+                    </li>
+                    <li class="loan-detail-money__item" style="border-left: 1px solid  rgba(0,0,0,.12);border-right: 1px solid  rgba(0,0,0,.12);">
+                        <span class="persent" id="lv">0%</span>
+                        <p>年利率</p>
+                    </li>
+                    <li class="loan-detail-money__item">
+                        <span class="persent" id="fwlv">0% | 0元起</span>
+                        <p>服务费</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="loan-detail-info">
+                <ul class="card__info">
+                    <li class="card__info-item">发布日期：<span id="datatime"></span></li>
+                    <li class="card__info-item">还款方式：<span id="hkfs"></span></li>
+                    <li class="card__info-item">所有人可见：<span id="sfkj"></span></li>
+                </ul>
+                <p class="card__info-item full" id="bcsm"></p>
+                <div class="detail-other-recent full">
+                    <p class="data"><span id="sqrs"></span>人申请  |  2 小时处理</p>
+                </div>
+            </div>
+        </div>
+
+        <a class="qrfbbtn" href="javascript:;" id="qrfbbtn">马上申请</a>
+    </div>
+<script>
+    //获取页面传递参数
+    var url="http://192.168.199.136:8080/daiqianlai";
+        let urs=window.location.search;
+        let strs=urs.substring(1);
+        let silp=strs.split('&');
+        let res={};
+        for (let i=0;i<silp.length;i++){
+            res[silp[i].split("=")[0]]=silp[i].split("=")[1];
+        }
+        console.log(res);
+    var nhlv="";
+    var fwfl="";
+    var fwf="";
+    var Cjrid=res.cjrid;
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+
+    $.ajax({
+        type : "GET",
+        url : url+"/borrow /getLoanUserByid",
+        dataType : 'json',
+        async: false,
+        contentType : "application/json",
+        data :{
+            id:Cjrid
+        },
+        success : function(ro) {
+            //给名字替换*好
+            var Name="";
+            var Phone="";
+            console.log(ro);
+            if(ro.user.name.length==2){
+                Name= ro.user.name.substring(0,1)+"*"
+            }else if(ro.user.name.length==3){
+                Name= ro.user.name.substring(0,1)+"*"+ro.user.name.substring(2,3)
+            }else if(ro.user.name.length==4){
+                Name= ro.user.name.substring(0,1)+"**"+ro.user.name.substring(3,4)
+            }
+            Phone=ro.user.phonenum.substring(0,3)+"****"+ro.user.phonenum.substring(7,11);
+            $("#img").attr('src',ro.user.tou);
+            $("#name").html(Name);
+            $("#phone").html(Phone);
+            $("#dsje").html(ro.user.sum_borrow_money);
+            $("#dhje").html(ro.user.norefund_money);
+            $("#cjcs").html(ro.user.borrow_num);
+            $("#loading").hide();
+        },
+        error : function(err) {
+            alert(err);
+        }
+    });
+    $.ajax({
+        type : "GET",
+        url : url+"/borrow /getAppLoanByid",
+        dataType : 'json',
+        async: false,
+        contentType : "application/json",
+        data :{
+            id:Cjrid
+        },
+        success : function(ro) {
+            console.log(ro);
+            var M=ro[0].loanmoney.split(",").join("~");
+            var Time=ro[0].loan_time.split(",");
+            var srts1=Time[0]+"天~"+Time[1]+"天";
+            var isvisible="是";
+            if(ro[0].isvisible!=1){
+                isvisible="否"
+            }
+            //console.log(Time);
+            $("#jkze").html(M);
+            $("#time").html(srts1);
+            $("#lv").html(Math.floor(ro[0].rate*100).toFixed(0)+"%");
+            $("#fwlv").html(ro[0].sc_rate*100+"% | "+ro[0].sc_min+"元起");
+            fwfl=ro[0].sc_rate*100;
+            fwf=ro[0].sc_min;
+            nhlv=ro[0].rate*100;
+            $("#datatime").html(ro[0].apply_time.substring(0,10));
+            $("#hkfs").html(ro[0].way);
+            $("#sfkj").html(isvisible);
+            $("#bcsm").html("补充说明 : "+ro[0].remark);
+            $("#sqrs").html(ro[0].count);
+            $("#loading").hide();
+        },
+        error : function(err) {
+            alert(err);
+        }
+    });
+
+    $(function(){
+            $("#qrfbbtn").on('click',function () {
+                window.location.href="shenqingjiekuan.html?cjrid="+Cjrid+"&nhlv="+nhlv+"&fwfl="+fwfl+"&fwf="+fwf;
+            });
+        $(".loan-detail-button").on('click',function () {
+            window.location.href="fuzhaixianqing.html?cjrid="+Cjrid;
+        })
+    });
+
+</script>
+</body>
+</html>

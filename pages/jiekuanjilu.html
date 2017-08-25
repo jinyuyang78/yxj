@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>借款记录</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+
+            <ul class="jkjl-box" id="list">
+                <!--<li>等待张军同意 <span>2017-08-02</span></li>-->
+            </ul>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $.ajax({
+        type : "GET",
+        url : localStorage.url+"/borrow/getBorrowMessageByid",
+        dataType : 'json',
+        async: false,
+        contentType : "application/json",
+        data :{
+            id:localStorage.id,
+        },
+        success : function(datas) {
+            console.log(datas);
+            var strs="";
+            $.each(datas,function (i,e) {
+                strs+=` <li>等待`+datas[i].name+`同意 <span>`+datas[i].apply_time.substring(0,19)+`</span></li>`
+            })
+            $(strs).appendTo("#list")
+        },
+        error : function(err) {
+            //console.log(err);
+        }
+    });
+    $(function(){
+        $("#xybtn").on("click",function () {
+            $(this).parent().toggleClass("xz");
+            if($(".xybtn").hasClass("xz")){
+                $("#qrfbbtn").removeClass("jybtn")
+            }else {
+                $("#qrfbbtn").addClass("jybtn")
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

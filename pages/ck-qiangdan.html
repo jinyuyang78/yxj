@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>抢单详情</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <link href="../Content/css/iosSelect.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <div class="wrap" style="background-color:#fff">
+       <p class="qjbh">债权编号:3215457444555847<span>债权难度:简单</span></p>
+        <div class="zfxxbox">
+            <div class="zhxx fl">
+                <p>债权金额<span>10K</span></p>
+                <p>逾期时间<span>1个月</span></p>
+                <p>赏金<span>10K</span></p>
+                <p>债权地址<span>北京市朝阳区十八了点</span></p>
+            </div>
+            <div class="qdbtnbox fl">
+                <p>抢单人数:0</p>
+                <p class="qdje">¥20</p>
+                <a href="javascript:;" id="qdbtn">立即抢单</a>
+            </div>
+        </div>
+        <p class="cjtits">债权信息</p>
+        <ul class="cj-zqxx">
+            <li>债务方是否失联 <span>是</span></li>
+            <li>债务方是否有还款能力 <span>是</span></li>
+            <li>是否有担保 <span class="no">否</span></li>
+            <li>抵/质押物价能否覆盖债务 <span>是</span></li>
+            <li>是否诉讼 <span>是</span></li>
+        </ul>
+        <p class="cjtits">债权方信息</p>
+        <ul class="cj-zqxx">
+            <li>债权方: 王天来</li>
+            <li>现住址: 北京市朝阳区</li>
+            <li>联系方式: 152****2815</li>
+        </ul>
+        <p class="cjtits">债务方信息</p>
+        <ul class="cj-zqxx">
+            <li>债务方: 王天来</li>
+            <li>现住址: 北京市朝阳区</li>
+            <li>联系方式: 152****2815</li>
+        </ul>
+        <p class="cjtits">债务凭证</p>
+
+        <ul class="zjpzbox">
+            <p>主要凭证</p>
+            <li style="background-image: url(../Content/imgs/gril.jpg)"></li>
+            <li style="background-image: url(../Content/imgs/gril.jpg)"></li>
+            <li style="background-image: url(../Content/imgs/gril.jpg)"></li>
+            <li style="background-image: url(../Content/imgs/gril.jpg)"></li>
+        </ul>
+        <p class="wztips">等待债权方确认后，隐藏信息可见</p>
+
+        <p class="qdje2">¥20</p>
+        <a href="javascript:;" id="qdbtn2" class="ljqdbtn">立即抢单</a>
+    </div>
+    <div class="qdgzbox dn" id="qdgzbox">
+        <div class="mask" style="display: block"></div>
+        <div class="qdgz">
+            <p class="wztips2">抢单规则</p>
+            <p class="gz">1. 债权方发布债权信息</p>
+            <p class="gz">2. 催客至催收大厅抢单（平台规则为多人抢单模式，同时催客也可抢多笔债权单）</p>
+            <p class="gz">3. 抢单后需支付20元平台服务费</p>
+            <a href="javascript:;" class="zfbtn" id="zfbtn">支付</a>
+        </div>
+    </div>
+    <div class="passbox">
+        <div class="wz">请输入支付密码</div>
+        <div class="ipt-box-nick mb15-nick">
+            <input type="tel" maxlength="6" class="ipt-real-nick" id="ipt-real-nick">
+            <div class="ipts-box-nick">
+                <div class="ipt-fake-box">
+                    <input type="text" >
+                    <input type="text" >
+                    <input type="text" >
+                    <input type="text" >
+                    <input type="text" >
+                    <input type="text" >
+                </div>
+            </div>
+            <div class="ipt-active-nick"><img src="../Content/imgs/founs.gif"></div>
+        </div>
+    </div>
+    <div id="loadingToast" style="opacity: 1;" class="dn">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+    <script src="../Content/js/iosiscroll.js"></script>
+    <script src="../Content/js/iosSelect.js"></script>
+    <script src="../Content/js/input2.js"></script>
+<script>
+    //192.168.199.136
+    var url="http://192.168.199.136:8080/daiqianlai";
+    //var url=" http://j.ccyjs.cn/DiscuzServer";
+    //获取页面传递参数
+    let urs=window.location.search;
+    let strs=urs.substring(1);
+    let silp=strs.split('&');
+    let res={};
+    for (let i=0;i<silp.length;i++){
+        res[silp[i].split("=")[0]]=silp[i].split("=")[1];
+    }
+//    var param={
+//        phonenum:"15210792815",
+//        pwd:"123"
+//    }
+//    $.ajax({
+//        type : "POST",
+//        url : url+"/login/checkLogin.controller",
+//        dataType : 'json',
+//        async: false,
+//        contentType : "application/json",
+//        data :JSON.stringify(param),
+//        success : function(ro) {
+//            console.log(ro);
+//            if(ro.code == 200){
+//                console.log(ro)
+//            }
+//        },
+//        error : function(err) {
+//            alert(err);
+//        }
+//    });
+    var widH=$(window).height();
+    $(".mask").css("height",widH)
+    $(function(){
+        $("#footer li").on('click',function () {
+            $(this).addClass('active').siblings().removeClass("active")
+        });
+        $("#qdbtn,#qdbtn2").on('click',function () {
+            $("#qdgzbox").show();
+        });
+        $(".mask").on('click',function () {
+            $("#qdgzbox,.passbox").hide();
+            $(".qdgz").show();
+        });
+        $("#zfbtn").on('click',function () {
+            $(".qdgz").hide();
+            $(".passbox").show();
+            $("#ipt-real-nick").focus();
+        })
+    });
+
+</script>
+</body>
+</html>

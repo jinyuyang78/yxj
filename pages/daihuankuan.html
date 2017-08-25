@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>待还款</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../Content/imgs/kbloading.gif">
+</div>
+    <div class="wrap">
+            <ul class="dhk-box" id="dhk-box">
+                <li class="active"><span id="sum"></span><p>总待还</p></li>
+                <li><span id="qiridh"></span> <p>7天待还</p></li>
+                <li><span id="sanshi"></span> <p>30天待还</p></li>
+                <li><span id="yyq"></span> <p>已逾期</p></li>
+            </ul>
+            <div id="list">
+                <ul id="box1" class="dhk-box2">
+                    <!--<li>-->
+                        <!--<p class="name">张军</p>-->
+                        <!--<p class="rq">借入时间: 2017-08-12 12:26</p>-->
+                        <!--<p class="rq">还款时间: 2017-08-12 12:26</p>-->
+                        <!--<p class="pric">6000.00</p>-->
+                    <!--</li>-->
+                </ul>
+
+                <ul id="box2" class="dhk-box2 dn">
+                </ul>
+
+                <ul id="box3" class="dhk-box2 dn">
+
+                </ul>
+
+                <ul id="box4" class="dhk-box2 dn">
+                </ul>
+            </div>
+
+
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    //获取页面传递参数
+
+        let urs=window.location.search;
+        let strs=urs.substring(1);
+        let silp=strs.split('&');
+        let res={};
+        for (let i=0;i<silp.length;i++){
+            res[silp[i].split("=")[0]]=silp[i].split("=")[1];
+        }
+        var Id=localStorage.id;
+        console.log(res);
+
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+
+    $.ajax({
+        type : "GET",
+        url : localStorage.url+"/deal/getBorrowRefundMap",
+        dataType : 'json',
+        async: false,
+        contentType : "application/json",
+        data :{
+            id:Id,
+        },
+        success : function(ro) {
+            console.log(ro);
+            $("#sum").html(ro.refund_sum.toFixed(2));
+            $("#qiridh").html(Number(res.qiridh).toFixed(2));
+            $("#sanshi").html(ro.refund_30.toFixed(2));
+            $("#yyq").html(Number(res.yyq).toFixed(2));
+            var srts1="";
+            $.each(ro.refund_sum_list,function (i,el) {
+//                if(ro.refund_sum_list.length===0){
+//                    srts1=""
+//                }
+                srts1+=`  <li>
+                            <p class="name">`+ro.refund_sum_list[i].name+`</p>
+                            <p class="rq">借入时间: `+ro.refund_sum_list[i].loan_date+`</p>
+                            <p class="rq">还款时间: `+ro.refund_sum_list[i].refund_date+`</p>
+                            <p class="pric">`+ro.refund_sum_list[i].refund_sum_money.toFixed(2)+`元</p>
+                        </li>`
+            });
+            $(srts1).appendTo("#box1");
+            var srts2="";
+            $.each(ro.refund_7_list,function (i,el) {
+                srts2+=`  <li>
+                            <p class="name">`+ro.refund_sum_list[i].name+`</p>
+                            <p class="rq">借入时间: `+ro.refund_sum_list[i].loan_date+`</p>
+                            <p class="rq">还款时间: `+ro.refund_sum_list[i].refund_date+`</p>
+                            <p class="pric">`+ro.refund_sum_list[i].refund_sum_money.toFixed(2)+`元</p>
+                        </li>`
+            });
+            $(srts2).appendTo("#box2");
+
+            var srts3="";
+            $.each(ro.refund_30_list,function (i,el) {
+                srts3+=`  <li>
+                            <p class="name">`+ro.refund_sum_list[i].name+`</p>
+                            <p class="rq">借入时间: `+ro.refund_sum_list[i].loan_date+`</p>
+                            <p class="rq">还款时间: `+ro.refund_sum_list[i].refund_date+`</p>
+                            <p class="pric">`+ro.refund_sum_list[i].refund_sum_money.toFixed(2)+`元</p>
+                        </li>`
+            });
+            $(srts3).appendTo("#box3");
+
+            var srts4="";
+            $.each(ro.refund_no_list,function (i,el) {
+//                if(ro.refund_no_list.length===0){
+//                    srts1=""
+//                }
+                srts4+=`  <li>
+                            <p class="name">`+ro.refund_sum_list[i].name+`</p>
+                            <p class="rq">借入时间: `+ro.refund_sum_list[i].loan_date+`</p>
+                            <p class="rq">还款时间: `+ro.refund_sum_list[i].refund_date+`</p>
+                            <p class="pric">`+ro.refund_sum_list[i].refund_sum_money.toFixed(2)+`元</p>
+                        </li>`
+            });
+            $(srts4).appendTo("#box4");
+
+            $("#loading").hide();
+        },
+        error : function(err) {
+            alert(err);
+        }
+    });
+    $(function(){
+        $("#dhk-box li").on('click',function () {
+            var index=$(this).index();
+            $(this).addClass("active").siblings().removeClass("active");
+            $("#list ul").eq(index).show().siblings().hide();
+        })
+    });
+
+</script>
+</body>
+</html>

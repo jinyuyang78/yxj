@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>忘记密码</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .xybtn {
+            width: 230px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap" style="background-color: #ffffff">
+        <div id="login2" >
+            <ul class="login">
+                <li style="margin-top: 0"><label class="sjh"></label><input placeholder="请输入手机号" type="tel" id="zctel" maxlength="11" ></li>
+                <li><label class="sjmm"></label><input placeholder="请输入新密码6-18位字母数字组合" type="password" id="zcpass" maxlength="18"></li>
+                <li><label class="sjmm"></label><input placeholder="请输入验证码" type="tel" id="code" maxlength="4"><input onclick="sendCode()" type="button" value="发送验证码" class="fsyzmbtn" id="btnSendCode"></li>
+            </ul>
+
+            <a href="javascript:;" class="dlbtn xybtn2" id="zcbtn">确定</a>
+        </div>
+
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+    <script src="../Content/js/layer-mobl.js"></script>
+    <script>
+        var url="http://192.168.199.136:8080/daiqianlai";
+        var Code="";
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+        $(".nav li").on('click',function () {
+            var id=$(this).attr("data-id");
+            $(this).addClass("active").siblings().removeClass("active");
+            if(id==1){
+                $('#login').show().siblings().hide();
+            }else {
+                $('#login2').show().siblings().hide();
+            }
+        })
+        $("#xybtn2,#xybtn").on("click",function () {
+            $(this).parent().toggleClass("xz");
+            if($(this).parent().hasClass("xz")){
+                $(".dlbtn").removeClass("jybtn")
+            }else {
+                $(".dlbtn").addClass("jybtn")
+            }
+        });
+        $(".xywz").on("click",function () {
+            $(".component-modal").show();
+        })
+        $(".component-modal__close").on("click",function () {
+            $(".component-modal").hide();
+        })
+
+
+    });
+    var wait=60;
+    var o=document.getElementById("btnSendCode");
+    function time() {
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            o.value="发送验证码";
+            wait = 60;
+        } else {
+            o.setAttribute("disabled", true);
+            o.value="重新发送(" + wait + ")";
+            wait--;
+            setTimeout(function() {
+                    time();
+                },
+                1000)
+        }
+    }
+    $('#zcbtn').on('click',function () {
+       if($(this).hasClass("jybtn")){
+           return false
+       }else {
+           zhuce();
+       }
+
+    });
+
+    //发送验证码
+    function sendCode() {
+        var tel=$("#zctel").val();
+        if(tel==""){
+            layer.open({
+                content:"手机号不能为空!",
+                time:1
+            });
+            return false
+        }else if(!/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i.test(tel)){
+            layer.open({
+                content:"请检查手机号输入!",
+                time:1
+            });
+            return false
+        }
+        $.ajax({
+            type : "GET",
+            url :url+"/login/chekCode",
+            dataType : 'json',
+            async: true,
+            contentType : "application/json",
+            data :{
+                phonenum:tel,
+                type:2
+            },
+            success : function(ro) {
+                if(ro.code == 200){
+                    if(ro.data=="2"){
+                        layer.open({
+                            content:"该手机号未注册!",
+                            time:1
+                        });
+                        return false
+                    }else if(ro.data=="1"){
+                        Code=ro.msg;
+                        console.log(ro.msg)
+                    }
+                    time();
+
+                }
+            },
+            error : function(err) {
+                alert(err);
+            }
+        });
+    }
+
+    //点击提交按钮
+   function zhuce() {
+        var tel=$("#zctel").val();
+        var pass=$("#zcpass").val();
+        var code=$("#code").val();
+       console.log(pass)
+       if(tel==""){
+           layer.open({
+               content:"手机号不能为空!",
+               time:1
+           });
+           return false
+       }else if(!/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i.test(tel)){
+           layer.open({
+               content:"请检查手机号输入!",
+               time:1
+           });
+           return false
+       }else if(pass==""||pass.length<6){
+           layer.open({
+               content:"请检查密码输入!",
+               time:1
+           });
+           return false
+       }else if(code==""||code.length!=4||code!=Code){
+            layer.open({
+                content:"请检查验证码输入!",
+                time:1
+            });
+            return false
+        }
+        console.log(tel+code);
+        console.log(pass);
+        $.ajax({
+            type : "GET",
+            url :url+"/me/updatePWD",
+            dataType : 'json',
+            async: true,
+            contentType : "application/json",
+            data :{
+                phonenum:tel,
+                pwd:pass,
+                yzm:code
+            },
+            success : function(ro) {
+                console.log(ro);
+                if(ro.code == 200 && ro.data=="1"){
+                    layer.open({
+                        content:"密码修改成功~可以去登录啦~",
+                        time:2
+                    });
+                    setTimeout(function () {
+                        location.href="login.html";
+                    },1000)
+                    //console.log(ro)
+                    //location.reload();
+                }
+            },
+            error : function(err) {
+                alert(err);
+            }
+        });
+    }
+</script>
+</body>
+</html>

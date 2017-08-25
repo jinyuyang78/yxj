@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>出借资金</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="loading">
+<img src="../Content/imgs/kbloading.gif" >
+</div>
+    <div class="wrap">
+       <div class="jr-box">
+            <h3 id="jrze">3000.00</h3>
+            <p class="jr-zzj">总借出资金</p>
+           <ul class="jr-ul">
+               <li style="border-right: 1px solid #d1d1d1"><span id="lx">0.00</span><p>总利息</p></li>
+               <li><span id="cs">0</span><p>借出次数</p></li>
+           </ul>
+       </div>
+        <ul id="box1" class="dhk-box2">
+           </ul>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    ///deal/getBorrowMap
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $.ajax({
+        type : "GET",
+        url : localStorage.url+"/deal/getLoanMap",
+        dataType : 'json',
+        async:true,
+        contentType : "application/json",
+        data :{
+            id:localStorage.id
+        },
+        success : function(datas) {
+            console.log(datas);
+            $("#jrze").html(Number(datas.deal.sum_loan_money).toFixed(2));
+            $("#lx").html(Number(datas.deal.interest_l).toFixed(2));//borrow_num
+            $("#cs").html(Number(datas.deal.loan_num));//borrow_num
+            var strs="";
+            $.each(datas.list,function (i,el) {
+                strs+=` <li>
+                            <p class="name">`+datas.list[i].name+`</p>
+                            <p class="rq">借入时间: `+datas.list[i].loan_date+`</p>
+                            <p class="rq">还款时间: `+datas.list[i].refund_date+`</p>
+                            <p class="pric">`+Number(datas.list[i].money).toFixed(2)+`元</p>
+                        </li>  `
+            })
+            $(strs).appendTo("#box1");
+            $("#loading").hide();
+
+        },
+        error : function(err) {
+            //console.log(err);
+        }
+    });
+    $(function(){
+
+    });
+
+</script>
+</body>
+</html>

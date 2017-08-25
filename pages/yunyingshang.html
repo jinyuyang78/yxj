@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>运营商</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="user-bind-card-verified">
+            <ul class="steps">
+                <li class="steps__item active"><span>1</span>
+                    <p>个人信息</p></li>
+                <li class="steps__item active"><span>2</span>
+                    <p>芝麻信用</p></li>
+                <li class="steps__item active"><span>3</span>
+                    <p>运营商</p></li>
+                <li class="steps__item"><span>4</span>
+                    <p>京东</p></li>
+            </ul>
+            <p class="bind-card__tips">我们为您的信息提供安全加密,不会泄露给第三方.</p>
+            <ul class="form-box">
+                <li class="form__item"><span class="form__key">手机号码</span>
+                    <div class="form__value"><input type="text" placeholder="请输入手机号"></div>
+                </li>
+                <li class="form__item"><span class="form__key">手机服务密码</span>
+                    <div class="form__value"><input type="text" placeholder="请输入手机服务密码"></div>
+                </li>
+            </ul>
+
+
+            <div class="bind-card-button"><span class="qrfbbtn">下一步</span></div>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+            $(".qrfbbtn").on('click',function () {
+                window.location.href="jingdong.html"
+            });
+
+
+
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,665 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>推荐问答</title>
+    <link rel="stylesheet" type="text/css" href="${path}/static/aui/css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="${path}/static/aui/mycss/aui.css" />
+    <style type="text/css">
+        .user-info {
+            background-color: #ffffff;
+            padding: 0.75rem 0;
+        }
+        img.avatar {
+            display: block;
+            margin: 0 auto;
+            width: 20%;
+        }
+        .aui-list .aui-list-header {
+            background-color: #ffffff;
+            line-height: 1.2rem;
+        }
+        .aui-list .aui-list-item {
+            background-color: #f8f6ef;
+        }
+        .aui-bar-tab-item>.bar-tab-label-wen{
+            /*width: 3em;*/
+            height: 2rem;
+            background: #931a02;
+            border-radius: 0.3rem;
+            text-align: center;
+            line-height: 2rem;
+            color: #fff;
+            font-size: 22px;
+        }
+        .tuijian{
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-left: 1rem;
+            background: url("${path}/static/aui/myimages/icon-question.png")no-repeat;
+            background-size: cover;
+        }
+        .xuanshagn{
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-left: 1rem;
+            background: url("${path}/static/aui/myimages/icon-offer.png")no-repeat;
+            background-size: cover;
+        }
+        .zhuanjia{
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-left: 1rem;
+            background: url("${path}/static/aui/myimages/icon-expert.png")no-repeat;
+            background-size: cover;
+        }
+        .wode{
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-left: 1rem;
+            background: url("${path}/static/aui/myimages/icon-member.png")no-repeat;
+            background-size: cover;
+        }
+        .box {
+            width: 100%;
+            padding: 0.6rem;
+            background: #f7f7f7;  /*重置搜索框样式*/
+            margin-bottom: 2rem;
+        }
+        select{
+            width: 4rem;
+            padding-left: 0.5rem;
+            font-size: 14px;
+            color: #bdbdbd;
+            /*position: relative;*/
+            /*z-index:5;*/
+        }
+        .margin-no{
+            margin: 0;
+            padding: 0;
+        }
+        .position1{
+            position: relative;
+            top: 0.1px;
+            left: -1.1rem;
+            pointer-events:none;
+        }
+        .aui-card-list-content {
+            padding-left: 0;
+            padding-top: 1rem;
+            width: 14rem;
+            margin: 0 auto;
+        }
+
+        .video-content,.aui-col-xs-4{
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 0;
+            margin: 2.5px;
+            width: 4.4rem;
+            height: 4.4rem;
+        }
+        .video-content{
+            position: relative;
+        }
+        .ddd{
+            border-bottom: 0.15rem solid #fff;
+            border-right: 0.15rem solid #fff;
+        }
+        .cover{
+            position: absolute;
+            top:0;
+            left: 0;
+            background:#000;
+            width:100%;
+            height:100%;
+            padding:5px;
+            color:#F00;
+            filter:alpha(Opacity=40);
+            -moz-opacity:0.4;opacity: 0.4
+        }
+        .cover>b{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: 0 auto;
+            display: block;
+            width: 2rem;
+            height: 2rem;
+            background: rosybrown;
+            text-align: center;
+            line-height: 2rem;
+            background: url(${path}/static/aui/myimages/3.png) no-repeat;
+            background-size: 2rem;
+            margin-left: -1rem;
+            margin-top: -1rem;
+        }
+        .video-box{
+            position: relative;
+        }
+        .video-display{
+            width: 100%;
+            margin: 0 auto;
+            position: absolute;
+            top: 1.5rem;
+            left: 0;
+        }
+        .video-ele{
+            min-width: 50%;
+            min-height: 50%;
+            background-size: contain;
+            overflow: hidden;
+        }
+        .video-ele>source{
+            width: 100%;
+            height: 100%;
+        }
+        .aui-card-list-content {
+            padding-left: 0;
+            padding-top: 0;
+            width: 14rem;
+            margin: 0 auto;
+        }
+
+        .video-content,.aui-col-xs-4{
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 0;
+            margin: 2.5px;
+            width: 4.4rem;
+            height: 4.4rem;
+        }
+        .video-content{
+            position: relative;
+        }
+        .aui-card-list-content-padded{
+            width: 14rem;
+            margin: 0 auto;
+            padding: 10px 2.5px;
+        }
+        #loading{
+            position: fixed;
+            height: 100%;
+            opacity: 1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            z-index: 1999;
+        }
+        #loading img{
+            position: absolute;
+            left: 50%;
+            top:50%;
+            margin-top: -21px;
+            margin-left: -21px;
+        }
+        .expxx{width: 100%;
+            padding-top: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;}
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="${path}/static/aui/myimages/kbloading.gif">
+</div>
+<div class="aui-content box" id="pagefirst">
+    <div class="aui-searchbar" id="first-search">
+        <select name="searchtypeid" id="searchtypeid">
+            <option value="0">按问题</option>
+            <option value="1">按专家</option>
+        </select>
+        <i class="aui-iconfont aui-icon-down position1"></i>
+
+        <div class="aui-searchbar-input aui-border-radius margin-no">
+            <input type="search" placeholder="请输入搜索的问题" id="search-input">
+            <div class="aui-searchbar-clear-btn">
+                <i class="aui-iconfont aui-icon-close"></i>
+            </div>
+        </div>
+        <div class="aui-searchbar-btn" tapmode>取消</div>
+    </div>
+</div>
+<footer class="aui-bar aui-bar-tab" id="footer">
+    <div class="aui-bar-tab-item aui-active" tapmode>
+        <!--<img class="tuijian" src="${path}/static/aui/myimages/icon-question.png"/>-->
+        <div class="icon tuijian"></div>
+        <div class="aui-bar-tab-label">推荐</div>
+    </div>
+    <div class="aui-bar-tab-item" tapmode>
+        <!--<img class="tuijian" src="${path}/static/aui/myimages/icon-offer.png"/>-->
+        <div class="icon xuanshagn"></div>
+        <div class="aui-bar-tab-label">悬赏</div>
+    </div>
+    <div class="aui-bar-tab-item" tapmode>
+        <div class="aui-bar-tab-label bar-tab-label-wen">问</div>
+    </div>
+    <div class="aui-bar-tab-item" tapmode>
+        <!--<img class="tuijian" src="${path}/static/aui/myimages/icon-expert.png"/>-->
+        <div class="icon zhuanjia"></div>
+        <div class="aui-bar-tab-label">专家</div>
+    </div>
+    <div class="aui-bar-tab-item" tapmode>
+        <!--<img class="tuijian" src="${path}/static/aui/myimages/icon-member.png"/>-->
+        <div class="icon wode"></div>
+        <div class="aui-bar-tab-label">我的</div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="${path}/static/aui/script/aui-tab.js"></script>
+<script type="text/javascript" src="${path}/static/aui/script/aui-scroll.js"></script>
+<script type="text/javascript" src="${path}/static/aui/myscript/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${path}/static/aui/myscript/lazyload.min.js"></script>
+<script type="text/javascript" src="${path}/static/aui/myscript/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="${path}/static/aui/myscript/layer.js"></script>
+<script type="text/javascript" src="${path}/static/aui/myscript/console.js"></script>
+
+<script type="text/javascript">
+    var scrollstatus = false;
+    //var openIdv = "oCmyxw1WGsfgw0xGQpHXasTRGX6E";
+    //var openIdv="oFVk3wDeBEq6UrFyqiH_VDz7kn5w"
+    var openIdv = "${openId}";
+    var lastPage = false;
+    var lastPageView = false;
+    var pageNo = 1;
+    var pageSize = 3;
+    // var url="http://192.168.199.148:8080/DiscuzServer";
+    var url="${path}";
+
+    apiready = function() {
+        api.parseTapmode();
+    };
+
+    //转向控制
+    var tab = new auiTab({
+        element : document.getElementById("footer")
+    }, function(ret) {
+        //document.getElementById("demo").textContent = ret.index;
+        if (ret) {
+            if (ret.index == 5) {
+                window.location = "${path}/wx/web/main/member?openId=${openId}";
+                return;
+            }
+            if (ret.index == 4) {
+                window.location = "${path}/wx/web/main/expert?openId=${openId}";
+                return;
+            }
+            if (ret.index == 3) {
+                window.location = "${path}/wx/web/main/quesadd?openId=${openId}";
+            }
+            if (ret.index == 2) {
+                window.location = "${path}/wx/web/main/offer?openId=${openId}";
+                return;
+            }
+            if (ret.index == 1) {
+                return;
+            }
+        }
+    });
+
+    //获取图片接口
+    function imgs(id) {
+        //alert(11)
+        var imgprams={
+            openId : openIdv,
+            webquestionid :id
+        };
+        var imgstrs="";
+        $.ajax({
+            type : "GET",
+            url : url+"/wx/web/question/getquestionimglist",
+            dataType : 'json',
+            async: false,
+            contentType : "application/json",
+            data : imgprams,
+            success : function(ro) {
+                $("#loading").hide();
+                $.each(ro.datas, function(index, vo){
+                    if(vo.attachType=="img"){
+                        imgstrs+=`<div class="aui-col-xs-4 lazy"data-original="`+vo.attachUrl+`" style="background-image: url(${path}/static/aui/myimages/loading.gif)" onclick="getPicInfo(this)">
+                                        </div>`
+                    }else {
+                        imgstrs+=`<div class="aui-col-xs-4 video-content">
+                        <video id="video" width="100%" height="100%" style="background: #fff">
+                            <source src=`+vo.attachUrl+` type="video/mp4"/>
+                            <source src=`+vo.attachUrl+` type="video/webM"/>
+                            <source src=`+vo.attachUrl+` type="video/ogg"/>
+                        </video>
+                        <div class="cover">
+                            <b></b>
+                         </div>
+                        </div></div>`;
+                    }
+                });
+            },
+        });
+        return imgstrs
+    }
+    function initpage(pageNogg,pageSizegg){
+        //动态添加擅长分类的类型 并添加事件
+        //alert(12)
+        var prams={
+            openId:openIdv,
+            page:pageNogg,
+            rows:pageSizegg,
+            sort:'id'
+        }
+        $.ajax({
+            type : "GET",
+            url : url+"/wx/web/question/getexpertlist",
+            dataType : 'json',
+            async: false,
+            contentType : "application/json",
+            data : prams,
+            success : function(ro) {
+                if(ro.code == 200){
+                    pageNo = ro.page.pageNo;
+                    lastPage = ro.page.lastPage;
+                    if(pageNo=="1"&&ro.page.totalQuantity=="0"){
+                        $("#loading").hide();
+                        return false;
+                    }
+                    var rows="";
+                    console.log(ro.datas)
+                    $.each(ro.datas, function(index, vo){
+                        var expDescstr = (vo.expDesc);
+                        rows = rows + `<div class='aui-card-list' data-id=`+vo.id+`>`;
+
+                        //用户信息
+                        rows = rows + `<div class="aui-card-list-header aui-card-list-user">
+                                               <div class="aui-card-list-user-avatar">
+                                                  <img src=`+vo.picUrl+` style="width:2rem" class="aui-img-round">
+                                                </div>
+                                               <div class="aui-card-list-user-name">
+                                                   <div class="aui-text-info"><span>`+vo.memName+`</span></div>
+                                                   <!-- <div class="aui-font-size-14 text-light">赏金￥<span>`+vo.questionFee/100+`</span></div> -->
+                                                </div>
+                                                <div class="aui-card-list-user-info text-light">收藏爱好者</div>
+
+                                                </div>`;
+                        //图片列表+文字    图片和文字在一个DIV中
+                        rows = rows + `<div class="aui-card-list aui-border-t">`;
+                        rows = rows + `<div class="aui-card-list-content-padded aui-padded-b-5">`+vo.quesTitle+`</div>`;
+                        rows+=`<div class="aui-card-list-content">`+imgs(vo.id)+`</div></div>`;
+
+                        //回答按钮
+                        rows = rows +`<div class="item-user">
+  					                <div class="aui-card-list-header aui-card-list-user">
+  					                	<div class="aui-card-list-user-avatar">
+  					                		<img src=`+vo.expPicUrl+`
+  					                			style="width:2rem" class="aui-img-round">
+  					                	</div>
+  					                	<div class="aui-card-list-user-name">
+  					              			<div class="aui-text-info"  data-date=`+vo.recCreateDt+` data-id=`+vo.id+` data-name=`+vo.expName+` data-pric=`+vo.listenFee+` data-experid=`+vo.expOpenId+`>
+
+  					                			<span class="voice">`+vo.listenFee+`元学习<i></i></span>
+  					                		</div>
+  					                		<div class="aui-font-size-14 text-light">
+  					                			<span>`+vo.sumListened+`人查看</span>
+  					                		</div>
+  					                	</div>
+  					                	<div class="aui-card-list-user-info text-light" style="    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;">
+  					                		<span>`+vo.expName+` | `+expDescstr+`</span>
+  					                	</div>
+  					                </div>
+  					                </div>`;
+                        rows = rows +`</div>`;
+                    });
+                    //alert(rows);
+                    $("#pagefirst").append(rows);
+                    $("div.lazy").lazyload();
+
+                    //加载图片事件
+                    initviewvideos();
+                }
+                //下面要动态添加事件把这些动作添加到选项卡上
+                /*       	    $.each($('.list-li'),function(index,item){
+                 $(item).on('click',function(){
+                 $(this).addClass('back').siblings().removeClass('back');
+                 })
+                 }); */
+            },
+            error : function(err) {
+                alert(err.message);
+            }
+        });
+
+    }
+    function addpage(pageNov,pageSizev,lastPagev){
+        //alert(13)
+        if(lastPage == true){
+            console.log("这里是最后一页");
+            if(lastPageView == false){
+                var str=`<div class="aui-card-list">数据已加载完</div>`;
+                //$("#pagefirst").append(str);
+                lastPageView = true;
+            }
+            return;
+        }
+        if(lastPagev == false){
+            initpage(pageNov,pageSizev);
+        }else{
+            return;
+        }
+    }
+
+    //初始化页面
+    $(function(){
+        //初始化页面数据
+//alert(15)
+        initpage(1,pageSize);
+        scrollstatus = true;
+    });
+
+    //到底了之后加载数据
+    var scroll = new auiScroll({
+        //listen:true, //是否监听滚动高度，开启后将实时返回滚动高度
+        isToBottom:true,
+        distance:200 //判断到达底部的距离，isToBottom为true
+    },function(ret){
+        if(ret.isToBottom==true){
+            if(lastPageView != true){
+            }
+            if(scrollstatus == true){
+                var pagenext = pageNo+1;
+                addpage(pagenext,pageSize,lastPage);
+
+            }
+
+        }
+    });
+
+    function isPlay(obj) {
+        obj.play();
+
+    }
+    //下面是搜索用的JS代码
+    var searchBar = document.querySelector(".aui-searchbar");
+    var searchBarInput = document.querySelector(".aui-searchbar input");
+    var searchBarBtn = document.querySelector(".aui-searchbar .aui-searchbar-btn");
+    var searchBarClearBtn = document.querySelector(".aui-searchbar .aui-searchbar-clear-btn");
+    if(searchBar){
+        searchBarInput.onclick = function(){
+            searchBarBtn.style.marginRight = 0;
+        }
+        searchBarInput.oninput = function(){
+            if(this.value.length){
+                searchBarClearBtn.style.display = 'block';
+                searchBarBtn.classList.add("aui-text-info1");
+                searchBarBtn.textContent = "搜索";
+            }else{
+                searchBarClearBtn.style.display = 'none';
+                searchBarBtn.classList.remove("aui-text-info1");
+                searchBarBtn.textContent = "取消";
+            }
+        }
+    }
+    searchBarClearBtn.onclick = function(){
+        this.style.display = 'none';
+        searchBarInput.value = '';
+        searchBarBtn.classList.remove("aui-text-info1");
+        searchBarBtn.textContent = "取消";
+    }
+    searchBarBtn.onclick = function(){
+        var keywords = searchBarInput.value;
+        var id=$("#searchtypeid").val();
+        if(keywords.length){
+            //var code=encodeURIComponent(keywords)
+            var code=keywords;
+            searchBarInput.blur();
+            window.location.href="${path}/wx/web/main/searchquestion?openId="+openIdv+"&seaid="+id+"&keywords="+code
+
+        }else{
+            this.style.marginRight = "-"+this.offsetWidth+"px";
+            searchBarInput.value = '';
+            searchBarInput.blur();
+        }
+    }
+
+
+
+
+    //初始化视频播放
+    function initviewvideos(){
+        //视频播放js代码
+        $.each($('.video-content'),function (index,item) {
+            $(item).on('click',function (e) {
+                var video = $(this).find("video").get(0);
+                if(video.paused){
+                    video.play();
+                }
+            })
+        });
+    }
+
+    //  点击学习按钮
+
+
+    $("div").on('click','.aui-text-info',function () {
+        var  Tthis=$(this);
+        //var listened=Tthis.attr("data-ttzt");
+        var id=Tthis.attr('data-id');
+        var  name=Tthis.attr('data-name');
+        var  pric=Tthis.attr('data-pric');
+        var  date=Tthis.attr('data-date');
+        var  experid=Tthis.attr('data-experid')
+        console.log(openIdv==experid)
+        if(openIdv==experid){
+            window.location.href="${path}/wx/web/my/listen?openId="+openIdv+"&questionid="+id;
+            return;
+        }
+
+        var parmas={
+            openId:openIdv,
+            cardType:1,
+            fee:pric*100,
+            //fee:1,
+            orderType:2,
+            feeType:"listen",
+            questionid:id
+        }
+        $.ajax({
+            type : "GET",
+            url : url+"/wx/web/apporder/getorderforlistenpay",
+            dataType : 'json',
+            async: false,
+            contentType : "application/json",
+            data : parmas,
+            success : function(ro) {
+                if(ro.code == 200){
+//                    var lesten=ro.datas.listened.toString();
+//					console.log(lesten)
+                    if( ro.datas.listened==0){
+                        layer.open({
+                            anim: 'up'
+                            ,content:"<p>专家姓名："+name+"</p><p>支付金额：￥"+pric+"</p><p>发布时间："+date+"</p>"
+                            ,btn: ['学习', '取消'],
+                            yes:function (index) {
+                                layer.close(index);
+                                var str = window.navigator.userAgent;
+                                var version = str.substring(8, 11);
+                                if (version != "5.0") {
+                                    alert("微信浏览器系统版本过低，请将微信升级至5.0以上");
+                                } else {
+                                    WeixinJSBridge
+                                        .invoke('getBrandWCPayRequest', {
+                                            "appId" : ro.datas.appId, //公众号名称，由商户传入
+                                            "timeStamp" : ro.datas.timeStamp, //时间戳
+                                            "nonceStr" : ro.datas.nonceStr, //随机串
+                                            "package" : ro.datas.wxPackage,//统一支付接口返回的prepay_id 参数值，提交格式如：prepay_id=***
+                                            "signType" : ro.datas.signType, //微信签名方式:sha1
+                                            "paySign" : ro.datas.paySign
+                                            //微信签名
+                                        }, function(res) {
+
+                                            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                                                //alert("支付成功")
+                                                window.location.href="${path}/wx/web/my/listen?openId="+openIdv+"&questionid="+id;
+                                            } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+                                                alert("取消支付");
+                                            } else if (res.err_msg == "get_brand_wcpay_request:fail") {
+                                                alert("支付失败");
+                                            }
+                                        });
+                                }
+                            }
+                        });
+                        return false
+                    }else {
+                        window.location.href="${path}/wx/web/question/expertquestiondesc?openId="+openIdv+"&questionid="+id;
+                    }
+
+                }
+
+            },
+            error : function(err) {
+                //alert(err.message);
+            }
+        });
+        return false;
+
+    });
+
+
+    //跳转问题详情页
+    $("div").on('click','.aui-card-list',function () {
+        var Tthis=$(this);
+        var id=Tthis.attr("data-id");
+        //alert(id);
+        console.log(id);
+        window.location.href="${path}/wx/web/question/expertquestiondesc?openId="+openIdv+"&questionid="+id;
+    });
+
+    $("div").on('click','.aui-col-xs-4',function () {
+        return false;
+    });
+
+
+    //调用微信预览图片接口
+    function getPicInfo(obj){
+        //alert(14)
+        //var imgObj = Array.prototype.slice.call($('.aui-col-xs-4 img'));   //获取图文中所有的img标签对象
+        var Tthis=$(obj);
+        var nowsrc=Tthis.attr('data-original');
+        var imgObj=Array.prototype.slice.call(Tthis.parent().find('.aui-col-xs-4'));
+        console.log(nowsrc);
+        console.log(imgObj);
+        var imgs=[];
+        $.each(imgObj,function (el,index) {
+            imgs.push(index.dataset.original)
+        })
+        WeixinJSBridge.invoke("imagePreview",{
+            "urls":imgs,
+            "current":nowsrc
+        });
+    }
+</script>
+</html>

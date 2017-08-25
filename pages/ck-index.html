@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>催收大厅</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <link href="../Content/css/iosSelect.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .pc-box{
+            float: none;
+            height: 2rem;
+            line-height: 2rem;
+            width: 100%;
+            background-color: #fbfbfb;
+        }
+        .showBank1 {
+            padding-right: 20px;
+            background-size: 14px;
+            font-size: .8rem;
+            color: #1d1d1d;
+            position: absolute;
+            left: 50%;
+            margin-left: -23px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap" style="background-color:#fff">
+        <div class="pc-box pr">
+            <input type="hidden" name="bank_id" id="bankId1" value="">
+            <span id="showBank1"  class=" showBank1">状态</span>
+        </div>
+        <ul class="steps2">
+            <li class="steps2__item">
+                <p>时间</p></li>
+            <li class="steps2__item kd">
+                <p>位置</p></li>
+            <li class="steps2__item">
+                <p>逾期</p></li>
+            <li class="steps2__item">
+                <p>金额</p></li>
+            <li class="steps2__item">
+                <p>赏金</p></li>
+            <li class="steps2__item">
+                <p>状态</p></li>
+        </ul>
+        <ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">抢单中</a></li>
+        </ul>
+        <ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">抢单中</a></li>
+        </ul>
+        <ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">抢单中</a></li>
+        </ul>
+        <ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">抢单中</a></li>
+        </ul>
+        <ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">抢单中</a></li>
+        </ul>
+    <!--<ul class="footer" id="footer">-->
+        <!--<li class="jr active">借入</li>-->
+        <!--<li class="jc">借出</li>-->
+        <!--<li class="xx">消息</li>-->
+        <!--<li class="jl">交易</li>-->
+        <!--<li class="wd">我的</li>-->
+    <!--</ul>-->
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+    <script src="../Content/js/iosiscroll.js"></script>
+    <script src="../Content/js/iosSelect.js"></script>
+<script>
+    //192.168.199.136
+    var url="http://192.168.199.136:8080/daiqianlai";
+    //var url=" http://j.ccyjs.cn/DiscuzServer";
+    //获取页面传递参数
+    let urs=window.location.search;
+    let strs=urs.substring(1);
+    let silp=strs.split('&');
+    let res={};
+    for (let i=0;i<silp.length;i++){
+        res[silp[i].split("=")[0]]=silp[i].split("=")[1];
+    }
+//    var param={
+//        phonenum:"15210792815",
+//        pwd:"123"
+//    }
+//    $.ajax({
+//        type : "POST",
+//        url : url+"/login/checkLogin.controller",
+//        dataType : 'json',
+//        async: false,
+//        contentType : "application/json",
+//        data :JSON.stringify(param),
+//        success : function(ro) {
+//            console.log(ro);
+//            if(ro.code == 200){
+//                console.log(ro)
+//            }
+//        },
+//        error : function(err) {
+//            alert(err);
+//        }
+//    });
+    $(function(){
+        $("#footer li").on('click',function () {
+            $(this).addClass('active').siblings().removeClass("active")
+        })
+
+        //选择还款方式
+        var data = [
+            {'id': '0', 'value': '不限'},
+            {'id': '0', 'value': '抢单中'},
+            {'id': '0', 'value': '已完成'},
+        ];
+        var showBankDom1 = document.querySelector('#showBank1');
+        var bankIdDom1 = document.querySelector('#bankId1');
+        showBankDom1.addEventListener('click', function () {
+            var bankId = showBankDom1.dataset['id'];
+            var bankName = showBankDom1.dataset['value'];
+
+            var bankSelect = new IosSelect(1,
+                [data],
+                {
+                    container: '.container',
+                    title: '选择状态',
+                    itemHeight: 50,
+                    itemShowCount: 3,
+                    oneLevelId: bankId,
+                    callback: function (selectOneObj) {
+                        bankIdDom1.value = selectOneObj.id;
+                        showBankDom1.innerHTML = selectOneObj.value;
+                        showBankDom1.dataset['value'] = selectOneObj.id;
+                    }
+                });
+        });
+    });
+
+</script>
+</body>
+</html>

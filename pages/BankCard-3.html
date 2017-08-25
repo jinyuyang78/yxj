@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>银行卡实名认证</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .form-box{
+            padding: 10px 1rem;
+        }
+        .form__item{
+            height: 2.5rem;
+            line-height: 2.5rem;
+            padding-left: 10px;
+            overflow: hidden;
+            border-left:1px solid #d1d1d1;
+        }
+        .form__item input{
+            width: 100%;
+            height: 2.5rem;
+            font-size: .7rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="user-bind-card-verified">
+            <ul class="steps">
+                <li class="steps__item active"><span>1</span>
+                    <p>实名认证</p></li>
+                <li class="steps__item active"><span>2</span>
+                    <p>银行卡认证</p></li>
+                <li class="steps__item active"><span>3</span>
+                    <p>设置交易密码</p></li>
+            </ul>
+            <p class="bind-card__tips">请保证本人信息真实性，否则会影响您的信用报告，导致无法借款或出借</p>
+            <ul class="form-box">
+                <li class="form__item" style="margin-bottom: 10px">
+                   <input type="password" placeholder="设置交易密码(6位数字)" id="pass" maxlength="6">
+                </li>
+                <li class="form__item">
+                    <input type="password" placeholder="确认交易密码(6位数字)" id="passtow" maxlength="6">
+                </li>
+            </ul>
+            <div class="bind-card-button"><span class="qrfbbtn" id="nextbtn">下一步</span></div>
+            <p class="bind-explain">贷来钱为您的信息提供安全加密，不会泄漏给第三方</p>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+    <script src="../Content/js/layer-mobl.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+        $("#nextbtn").on('click',function () {
+            var pass=$("#pass").val();
+            var passtow=$("#passtow").val();
+            if(pass!==passtow){
+                layer.open({
+                    content:"两次输入密码不一致",
+                    time:1
+                })
+            }else {
+                window.location.href="my.html"
+            }
+        })
+    });
+
+</script>
+</body>
+</html>

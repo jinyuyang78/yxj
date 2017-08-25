@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>我的</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../Content/imgs/kbloading.gif">
+</div>
+    <div class="wrap">
+        <div class="myheader pr">
+            <div class="myhead">
+                <img src="../Content/imgs/gril.jpg" id="img">
+            </div>
+            <div class="myinfo">
+                <p><span class="name" id="name"></span><span class="rz">未认证</span></p>
+                <p class="pric" id="zjze">10000<span>元</span></p>
+            </div>
+            <span class="zjmx pa" id="zjmx">资金明细</span>
+            <a class="tx pa" href="Withdrawals.html">提现</a>
+            <a class="cz pa" href="Recharge.html">充值</a>
+        </div>
+        <div style="background-color: #ffffff;margin-bottom: 10px;">
+        <ul class="myiocnbox" id="list">
+            <li class="yhk">银行卡</li>
+            <li class="mmgl" >密码管理</li>
+            <li class="xybg" >信用报告</li>
+        </ul>
+        </div>
+
+        <ul class="gybox">
+            <li class="help"><a href="help.html">使用帮助 <span></span></a></li>
+            <li class="about" style="border: none"><a href="aboutus.html">关于我们 <span></span></a></li>
+        </ul>
+        <a class="tcdlbtn" onclick="tcdl()">退出登录</a>
+    </div>
+    <ul class="footer" id="footer">
+        <li class="jr">借入</li>
+        <li class="jc">借出</li>
+        <li class="xx ">消息</li>
+        <li class="jl ">交易</li>
+        <li class="wd active">我的</li>
+    </ul>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    var bankstatusv="";
+    $.ajax({
+        type : "GET",
+        url : localStorage.url+"/me/getMeMap",
+        dataType : 'json',
+        async: false,
+        contentType : "application/json",
+        data :{
+            id:localStorage.id
+        },
+        success : function(datas) {
+            console.log(datas);
+            if(datas.rzstatus=="1"){
+                $(".rz").addClass("yrz").html("");
+            }
+            $("#img").attr("src",datas.tou);
+            $("#name").html(datas.name);
+            $("#zjze").html(datas.money);
+            bankstatusv=datas.bankstatus;
+            $("#loading").hide();
+
+        },
+        error : function(err) {
+            //console.log(err);
+        }
+    });
+    $(function(){
+       $("#zjmx").on('click',function () {
+           window.location.href=" Fund-details.html"
+       })
+        $("#list li").on("click",function () {
+            var index=$(this).index();
+            if(index=="0"){
+                window.location.href="BankCardinfo.html"
+            }else if(index=="1"){
+                //console.log(bankstatusv)
+                if(bankstatusv=="0"){
+                    layer.open({
+                        content:"请先绑定银行卡~",
+                        time:1
+                    })
+                }else {
+                    window.location.href="Password-maoif.html"
+                }
+
+            }
+        })
+    });
+    $("#footer li").on('click',function () {
+        var index=$(this).index();
+        $(this).addClass('active').siblings().removeClass("active");
+        console.log(index);
+        if(index===0){
+            window.location.href="index.html"
+        }else if(index===1){
+            window.location.href="chujie.html"
+        }else if(index===2){
+            window.location.href="messages.html"
+        }else if(index===3){
+            window.location.href="jiaoyi.html"
+        }else if(index===4){
+            window.location.href="my.html"
+        }
+    });
+    function tcdl() {
+        localStorage.id="";
+        localStorage.phonenum="";
+        window.location.href="index.html"
+
+    }
+</script>
+</body>
+</html>

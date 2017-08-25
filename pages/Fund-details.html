@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>我的资金明细</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        Password modification
+        .myheader {
+            overflow: hidden;
+            padding: .5rem;
+            background-color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .myheader .myhead{
+            width: 3rem;
+            height: 3rem;
+        }
+        .myheader .myinfo .pric{
+            font-size: .8rem;
+            color: #cccccc;
+        }
+        .myheader .zjmx{
+            top:50%;
+            margin-top: -.5rem;
+            color: #28cad6;
+        }
+        .myheader .zjmx.jian{
+            color: #ff3030;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../Content/imgs/kbloading.gif">
+</div>
+    <div class="wrap">
+        <p class="nullwzts" id="tis">您还有没有资金明细哦~~</p>
+        <ul id="list">
+            <!--<li>-->
+                <!--<div class="myheader pr">-->
+                    <!--<div class="myhead">-->
+                        <!--<img src="../Content/imgs/gril.jpg">-->
+                    <!--</div>-->
+                    <!--<div class="myinfo">-->
+                        <!--<p>张军</p>-->
+                        <!--<p class="pric">2017-05-23</p>-->
+                    <!--</div>-->
+                    <!--<span class="zjmx pa">+10000.00</span>-->
+                <!--</div>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<div class="myheader pr">-->
+                    <!--<div class="myhead">-->
+                        <!--<img src="../Content/imgs/gril.jpg">-->
+                    <!--</div>-->
+                    <!--<div class="myinfo">-->
+                        <!--<p>张军</p>-->
+                        <!--<p class="pric">2017-05-23</p>-->
+                    <!--</div>-->
+                    <!--<span class="zjmx pa jian">-10000.00</span>-->
+                <!--</div>-->
+            <!--</li>-->
+
+        </ul>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $.ajax({
+        type : "GET",
+        url : localStorage.url+"/me/getMoneyDetail",
+        dataType : 'json',
+        async: false,
+        contentType : "application/json",
+        data :{
+            id:localStorage.id
+        },
+        success : function(datas) {
+            console.log(datas);
+            if(datas.length>0){
+                $("#tis").hide();
+                var strs="";
+                $.each(datas,function (index,el) {
+                   if(datas[index].type=="1"){
+                       strs+=`<li>
+                                    <div class="myheader pr">
+                                        <div class="myhead">
+                                            <img src=`+datas[index].tou+`>
+                                        </div>
+                                        <div class="myinfo">
+                                            <p>`+datas[index].name+`</p>
+                                            <p class="pric">`+datas[index].loan_date+`</p>
+                                        </div>
+                                        <span class="zjmx pa">+`+datas[index].money+`.00</span>
+                                    </div>
+                                </li>`
+                   }else{
+                       strs+=`<li>
+                                    <div class="myheader pr">
+                                        <div class="myhead">
+                                            <img src=`+datas[index].tou+`>
+                                        </div>
+                                        <div class="myinfo">
+                                            <p>`+datas[index].name+`</p>
+                                            <p class="pric">`+datas[index].loan_date+`</p>
+                                        </div>
+                                        <span class="zjmx pa jian">-`+datas[index].money+`.00</span>
+                                    </div>
+                                </li>`
+                   }
+                })
+                $(strs).appendTo("#list")
+            }
+            $("#loading").hide();
+
+        },
+        error : function(err) {
+            //console.log(err);
+        }
+    });
+    $(function(){
+
+    });
+
+</script>
+</body>
+</html>

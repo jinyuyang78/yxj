@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>还款通知</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .myheader {
+            overflow: hidden;
+            padding: .8rem;
+            background-color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .myheader .myhead{
+            width: 3rem;
+            height: 3rem;
+        }
+        .myheader .myinfo{
+            padding-left: .5rem;
+            width: 14rem;
+            padding-top: .25rem;
+        }
+        .myheader .myinfo .pric{
+            font-size: .7rem;
+            color: #d1d1d1;
+            line-height: 1.4rem;
+        }
+        .myheader .myinfo .name2{
+            line-height: 1.2rem;
+        }
+        .myheader .rq{
+           float: right;
+            color: #d1d1d1;
+            font-size: .7rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul>
+            <li>
+                <div class="myheader">
+                    <div class="myhead">
+                        <img src="../Content/imgs/gril.jpg">
+                    </div>
+                    <div class="myinfo">
+                        <p class="name2">张军向您发起还款通知 <span class="rq">2017-08-20</span></p>
+                        <p class="pric">最后还款日期:2017-05-23</p>
+                    </div>
+
+                </div>
+            </li>
+
+        </ul>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+
+    });
+
+</script>
+</body>
+</html>

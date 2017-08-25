@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>回应借款</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .xybtn{
+            margin: 10px;
+            color: #cbcbcb;
+        }
+        .layermchild.layermanim .layermcont {
+            line-height: 26px;
+        }
+    </style>
+</head>
+<body>
+<!--<div id="loading">-->
+    <!--<img src="../Content/imgs/kbloading.gif" >-->
+<!--</div>-->
+    <div class="wrap">
+        <div class="hybox">
+            <p class="hy-wz"><i id="name" style="font-style: normal;"></i>向您提出借款 <span id="data">2017-08-07</span></p>
+            <ul class="hylibox">
+                <li>借款金额:<span id="dkje">10000</span></li>
+                <li>借款时长:<span id="datatime"></span>天</li>
+                <li>年化利率:<span id="nhlv"></span>%</li>
+                <li style="width: 50%">还款方式:<span id="hkfs"></span></li>
+            </ul>
+        </div>
+        <div class="xybtn" style="margin: 10px;">
+            <span id="xybtn"></span>
+            <p id="xywz">短信催收还款</p>
+        </div>
+
+        <ul class="hybtnbox">
+            <li onclick="goback()">拒绝</li>
+            <li style="float: right" id="tybtn">同意</li>
+        </ul>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+    <script src="../Content/js/layer-mobl.js"></script>
+<script>
+    //message/getBorrowMessage
+    var urs=window.location.search;
+    var strs=urs.substring(1);
+    var silp=strs.split('&');
+    var res={};
+    for (var i=0;i<silp.length;i++){
+        res[silp[i].split("=")[0]]=silp[i].split("=")[1];
+    }
+    console.log(res);
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    var buserid="";
+    var luserid="";
+    var ratev="";
+    var wayv="";
+    var loan_moneyv="";
+    var loan_timev="";
+    var duanxin=0;
+    var isonline=0;
+    var ispay=0;
+    var remarkv="";
+    var usev="";
+    $.ajax({
+        type : "GET",
+        url : localStorage.url+"/message/getBorrowMessage",
+        dataType : 'json',
+        async: false,
+        contentType : "application/json",
+        data :{
+            id:res.id
+        },
+        success : function(datas) {
+            console.log(datas);
+             buserid=datas.buser_id;
+             luserid=datas.luser_id;
+             ratev=datas.roate;
+             wayv=datas.way;
+             loan_moneyv=datas.loan_money;
+             loan_timev=datas.loan_time;
+             remarkv=datas.remark;
+             usev=datas.use;
+            $("#name").html(datas.name);
+            $("#dzje").html(datas.loan_money);
+            $("#data").html(datas.apply_time.substring(0,16));
+            $("#datatime").html(datas.loan_time);
+            $("#nhlv").html(datas.rate);
+            $("#hkfs").html(datas.way);
+
+            $("#loading").hide();
+
+        },
+        error : function(err) {
+            //console.log(err);
+        }
+    });
+    $("#tybtn").on("click",function () {
+        //底部对话框
+        layer.open({
+            content: '选择支付方式'
+            ,btn: ['线上支付', '线下支付']
+            ,skin: 'footer'
+            ,yes: function(index){
+                isonline=1;
+                window.location.href="xianshangzhifu.html?id="+res.id+"&duanxin="+duanxin+"&loan_money="+loan_moneyv;
+            }
+            ,no:function (index) {
+                isonline=0;
+                layer.open({
+                    content: '线下支付状态'
+                    ,btn: ['确认已支付', '待支付']
+                    ,skin: 'footer'
+                    ,yes: function(index){
+                        ispay=1;
+                        layer.open({content: '确认已支付'})
+                    }
+                    ,no:function (index) {
+                        layer.open({content: '待支付'})
+                    }
+                });
+            }
+        });
+    });
+    $(function(){
+        $("#xybtn").on("click",function () {
+            $(this).parent().toggleClass("xz");
+            if($(".xybtn").hasClass("xz")){
+                duanxin=1;
+                console.log(duanxin)
+            }else {
+                duanxin=0;
+                console.log(duanxin)
+            }
+        });
+    });
+
+    function sumit() {
+        $.ajax({
+            type : "GET",
+            url : localStorage.url+"/message/insertLoanMessage",
+            dataType : 'json',
+            async: false,
+            contentType : "application/json",
+            data :{
+                id:res.id
+            },
+            success : function(datas) {
+                console.log(datas);
+
+
+            },
+            error : function(err) {
+                //console.log(err);
+            }
+        });
+    }
+function goback() {
+    window.history.back(-1)
+}
+</script>
+</body>
+</html>

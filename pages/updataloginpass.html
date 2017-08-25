@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>修改登录密码</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .xybtn {
+            width: 230px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap" style="background-color: #ffffff">
+        <div id="login">
+            <ul class="login">
+                <li><label class="sjmm"></label><input placeholder="请输入新密码" type="tel" id="dlpass"></li>
+                <li><label class="sjmm"></label><input placeholder="确认输入密码" type="password" id="towdlpass"></li>
+            </ul>
+            <a href="javascript:;" class="dlbtn " id="dlbtn" onclick="denglu()">确认修改</a>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+    <script src="../Content/js/layer-mobl.js"></script>
+    <script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+
+    $(function(){
+
+    });
+    function denglu() {
+        var pass=$("#dlpass").val();
+        var towpass=$("#towdlpass").val();
+        if(pass==""||pass.length<6 || pass.length>18){
+            layer.open({
+                content:"请检查密码输入!",
+                time:1
+            });
+            return false
+        } else if(pass!=towpass){
+            layer.open({
+                content:"两次输入密码不一致!",
+                time:1
+            });
+            return false
+        }
+        $.ajax({
+            type : "GET",
+            url : localStorage.url+"/me/updatePWD",
+            dataType : 'json',
+            async: true,
+            contentType : "application/json",
+            data :{
+                id:localStorage.id,
+                pwd:pass
+            },
+            success : function(ro) {
+                console.log(ro)
+                if(ro.code == 200){
+                    if(ro.data=="0"){
+                        layer.open({
+                            content:"修改失败,请再次修改!",
+                            time:1
+                        });
+                        return false
+                    }else{
+                        layer.open({
+                            content:"修改成功~",
+                            time:1
+                        });
+                        setTimeout(function () {
+                            window.location.href="my.html";
+                        },700)
+
+                    }
+                }
+            },
+            error : function(err) {
+                alert(err);
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>我的催收</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <div class="wrap" >
+       <ul id="navbox">
+           <li class="active">审核中</li>
+           <li>抢单中</li>
+           <li>已完成</li>
+       </ul>
+        <ul class="steps2">
+            <li class="steps2__item">
+                <p>时间</p></li>
+            <li class="steps2__item kd">
+                <p>位置</p></li>
+            <li class="steps2__item">
+                <p>逾期</p></li>
+            <li class="steps2__item">
+                <p>金额</p></li>
+            <li class="steps2__item">
+                <p>赏金</p></li>
+            <li class="steps2__item">
+                <p>状态</p></li>
+        </ul>
+        <div id="content">
+            <div id="shz"></div>
+            <div id="qdz" class="dn"></div>
+            <div id="ywc" class="dn"></div>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    //192.168.199.136
+    var url="http://192.168.199.136:8080/daiqianlai";
+    //var url=" http://j.ccyjs.cn/DiscuzServer";
+    //获取页面传递参数
+    let urs=window.location.search;
+    let strs=urs.substring(1);
+    let silp=strs.split('&');
+    let res={};
+    for (let i=0;i<silp.length;i++){
+        res[silp[i].split("=")[0]]=silp[i].split("=")[1];
+    }
+//    var param={
+//        phonenum:"15210792815",
+//        pwd:"123"
+//    }
+//    $.ajax({
+//        type : "POST",
+//        url : url+"/login/checkLogin.controller",
+//        dataType : 'json',
+//        async: false,
+//        contentType : "application/json",
+//        data :JSON.stringify(param),
+//        success : function(ro) {
+//            console.log(ro);
+//            if(ro.code == 200){
+//                console.log(ro)
+//            }
+//        },
+//        error : function(err) {
+//            alert(err);
+//        }
+//    });
+    var str1=`<ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">审核中</a></li>
+        </ul>
+        <ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">审核中</a></li>
+        </ul>
+        `;
+    var str2=`<ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">已抢单</a></li>
+        </ul>
+        <ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">已抢单</a></li>
+        </ul>
+        `;
+    var str3=`<ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">已完成</a></li>
+        </ul>
+        <ul class="steps3">
+            <li class="steps3__item">
+                <p>07/01</p><p>2017</p></li>
+            <li class="steps3__item kd">
+                <p>朝阳区<span class="small-font">(债权)</span></p> <p>昌平区<span class="small-font">(债务)</span></p></li>
+            <li class="steps3__item gd ">
+                <p>20个月</p></li>
+            <li class="steps3__item gd zt">
+                <p>30K</p></li>
+            <li class="steps3__item gd zt">
+                <p>10K</p></li>
+            <li class="steps3__item">
+                <a class="qdzbtn">已完成</a></li>
+        </ul>
+        `;
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+        $("#navbox li").on("click",function () {
+            let  index=$(this).index();
+            $(this).addClass("active").siblings().removeClass("active");
+            //$(this).index()
+            $("#content div").eq(index).show().siblings().hide();
+
+        });
+        $("#shz").html(str1);
+        $("#qdz").html(str2);
+        $("#ywc").html(str3);
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>个人信息</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <link href="../Content/css/iosSelect.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .pc-box {
+            position: absolute;
+            right: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="user-bind-card-verified">
+            <ul class="steps">
+                <li class="steps__item active"><span>1</span>
+                    <p>个人信息</p></li>
+                <li class="steps__item"><span>2</span>
+                    <p>芝麻信用</p></li>
+                <li class="steps__item"><span>3</span>
+                    <p>运营商</p></li>
+                <li class="steps__item"><span>4</span>
+                    <p>京东</p></li>
+            </ul>
+            <p class="bind-card__tips">我们为您的信息提供安全加密,不会泄露给第三方.</p>
+            <p class="bind-card__tips" style="padding:5px 24px;">个人基本信息</p>
+            <ul class="form-box">
+                <li class="form__item detail"><span class="form__key">真实姓名</span>
+                    <div class="form__value"><input type="text" placeholder="请输入姓名"></div>
+                </li>
+                <li class="form__item"><span class="form__key">身份证号</span>
+                    <div class="form__value"><input type="text" placeholder="请输入身份证号"></div>
+                </li>
+                <li class="form__item"><span class="form__key">微信号</span>
+                    <div class="form__value"><input type="text" placeholder="请输入微信号"></div>
+                </li>
+                <li class="form__item"><span class="form__key">详细地址</span>
+                    <div class="form__value"><input type="tel" placeholder="详细地址"></div>
+                </li>
+            </ul>
+
+            <p class="bind-card__tips">紧急联系人信息</p>
+
+            <ul class="form-box">
+                <li class="form__item detail"><span class="form__key">紧急联系人一姓名</span>
+                    <div class="form__value"><input type="text" placeholder="请输入姓名"></div>
+                </li>
+                <li class="form__item"><span class="form__key">联系人手机号</span>
+                    <div class="form__value"><input type="text" placeholder="请输入手机号"></div>
+                </li>
+                <li class="form__item"><span class="form__key">与我的关系</span>
+                    <div class="pc-box">
+                        <input type="hidden" name="bank_id" id="bankId4" value="0">
+                        <span id="showBank4"  class=" showBank1">请选择</span>
+                    </div>
+                </li>
+            </ul>
+            <p class="bind-card__tips" style="padding: 5px"></p>
+            <ul class="form-box">
+                <li class="form__item detail"><span class="form__key">紧急联系人二姓名</span>
+                    <div class="form__value"><input type="text" placeholder="请输入姓名"></div>
+                </li>
+                <li class="form__item"><span class="form__key">联系人手机号</span>
+                    <div class="form__value"><input type="text" placeholder="请输入手机号"></div>
+                </li>
+                <li class="form__item"><span class="form__key">与我的关系</span>
+                    <div class="pc-box">
+                        <input type="hidden" name="bank_id" id="bankId5" value="0">
+                        <span id="showBank5"  class=" showBank1">请选择</span>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="bind-card-button"><span class="qrfbbtn">下一步</span></div>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+    <script src="../Content/js/iosSelect.js"></script>
+    <script src="../Content/js/iosiscroll.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+            $(".qrfbbtn").on('click',function () {
+                window.location.href="zhimaxinyong.html"
+            });
+
+        //选择和我的关系 联系人一
+        var data = [
+            {'id': '0', 'value': '亲属'},
+            {'id': '1', 'value': '夫妻'},
+            {'id': '2', 'value': '同事'},
+            {'id': '3', 'value': '同学'},
+            {'id': '3', 'value': '朋友'}
+        ];
+        var showBankDom1 = document.querySelector('#showBank4');
+        var bankIdDom1 = document.querySelector('#bankId4');
+        showBankDom1.addEventListener('click', function () {
+            var bankId = showBankDom1.dataset['id'];
+            var bankName = showBankDom1.dataset['value'];
+
+            var bankSelect = new IosSelect(1,
+                [data],
+                {
+                    container: '.container',
+                    title: '还款方式选择',
+                    itemHeight: 50,
+                    itemShowCount: 3,
+                    oneLevelId: bankId,
+                    callback: function (selectOneObj) {
+                        bankIdDom1.value = selectOneObj.id;
+                        showBankDom1.innerHTML = selectOneObj.value;
+                        showBankDom1.dataset['value'] = selectOneObj.id;
+                    }
+                });
+        });
+
+        //选择和我的关系 联系人二
+        var data2 = [
+            {'id': '0', 'value': '亲属'},
+            {'id': '1', 'value': '夫妻'},
+            {'id': '2', 'value': '同事'},
+            {'id': '3', 'value': '同学'},
+            {'id': '3', 'value': '朋友'}
+        ];
+        var showBankDom2 = document.querySelector('#showBank5');
+        var bankIdDom2 = document.querySelector('#bankId5');
+        showBankDom2.addEventListener('click', function () {
+            var bankId = showBankDom2.dataset['id'];
+            var bankName = showBankDom2.dataset['value'];
+
+            var bankSelect = new IosSelect(1,
+                [data2],
+                {
+                    container: '.container',
+                    title: '还款方式选择',
+                    itemHeight: 50,
+                    itemShowCount: 3,
+                    oneLevelId: bankId,
+                    callback: function (selectOneObj) {
+                        bankIdDom2.value = selectOneObj.id;
+                        showBankDom2.innerHTML = selectOneObj.value;
+                        showBankDom2.dataset['value'] = selectOneObj.id;
+                    }
+                });
+        });
+
+    });
+
+</script>
+</body>
+</html>

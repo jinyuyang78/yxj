@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>我的</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .gybox{
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap" >
+        <header class="ck-mybg">
+            <div class="mytx">
+                <img src="../Content/imgs/gril.jpg">
+            </div>
+            <p class="ck-name">冥界摄政王</p>
+            <p class="ck-rzzt">未认证</p>
+        </header>
+        <ul class="gybox">
+            <li data-id="0"> 我要发布委托<span></span></li>
+            <li data-id="1">我的抢单 <span></span></li>
+            <li data-id="2" style="border: none">我的催单 <span></span></li>
+        </ul>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    //192.168.199.136
+    var url="http://192.168.199.136:8080/daiqianlai";
+    //var url=" http://j.ccyjs.cn/DiscuzServer";
+    //获取页面传递参数
+    let urs=window.location.search;
+    let strs=urs.substring(1);
+    let silp=strs.split('&');
+    let res={};
+    for (let i=0;i<silp.length;i++){
+        res[silp[i].split("=")[0]]=silp[i].split("=")[1];
+    }
+//    var param={
+//        phonenum:"15210792815",
+//        pwd:"123"
+//    }
+//    $.ajax({
+//        type : "POST",
+//        url : url+"/login/checkLogin.controller",
+//        dataType : 'json',
+//        async: false,
+//        contentType : "application/json",
+//        data :JSON.stringify(param),
+//        success : function(ro) {
+//            console.log(ro);
+//            if(ro.code == 200){
+//                console.log(ro)
+//            }
+//        },
+//        error : function(err) {
+//            alert(err);
+//        }
+//    });
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+        $("#footer li").on('click',function () {
+            $(this).addClass('active').siblings().removeClass("active")
+        });
+        $(".gybox li").on('click',function () {
+            var id=$(this).attr("data-id");
+            if(id=="0"){
+                window.location.href="ck-fbwt.html"
+            }else if(id=="1"){
+                window.location.href="ck-myqd.html"
+            }else if(id=="2"){
+                window.location.href="ck-mycd.html"
+            }
+        })
+
+    });
+
+</script>
+</body>
+</html>

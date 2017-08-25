@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>我的消息</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .myheader {
+            overflow: hidden;
+            padding: .8rem;
+            background-color: #ffffff;
+            margin-bottom:.5rem;
+        }
+        .myheader .myhead{
+            width: 3rem;
+            height: 3rem;
+        }
+        .myheader .myinfo .pric{
+            font-size: .7rem;
+            color: #cccccc;
+        }
+        .myheader .zjmx{
+            top:50%;
+            margin-top: -.5rem;
+            color: #ff3030;
+        }
+        .myheader .zjmx.yd{
+            color: #d1d1d1;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul id="list">
+            <!--<li>-->
+                <!--<div class="myheader pr">-->
+                    <!--<div class="myhead">-->
+                        <!--<img src="../Content/imgs/gril.jpg">-->
+                    <!--</div>-->
+                    <!--<div class="myinfo">-->
+                        <!--<p>张军向您提出还款通知</p>-->
+                        <!--<p class="pric">2017-05-23</p>-->
+                    <!--</div>-->
+                    <!--<span class="zjmx pa">未读</span>-->
+                <!--</div>-->
+            <!--</li>-->
+
+            <!--<li>-->
+                <!--<div class="myheader pr">-->
+                    <!--<div class="myhead">-->
+                        <!--<img src="../Content/imgs/gril.jpg">-->
+                    <!--</div>-->
+                    <!--<div class="myinfo">-->
+                        <!--<p>张军向您提出还款通知</p>-->
+                        <!--<p class="pric">2017-05-23</p>-->
+                    <!--</div>-->
+                    <!--<span class="zjmx pa yd">已读</span>-->
+                <!--</div>-->
+            <!--</li>-->
+
+        </ul>
+    </div>
+    <ul class="footer" id="footer">
+        <li class="jr">借入</li>
+        <li class="jc">借出</li>
+        <li class="xx active">消息</li>
+        <li class="jl ">交易</li>
+        <li class="wd">我的</li>
+    </ul>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    var url="http://192.168.199.136:8080/daiqianlai";
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    //  获取消息列表
+    $.ajax({
+        type : "GET",
+        url : url+"/message/getMessageList",
+        dataType : 'json',
+        async: false,
+        contentType : "application/json",
+        data :{
+            id:localStorage.id
+        },
+        success : function(datas) {
+            console.log(datas);
+            var strs="";
+            $.each(datas,function (index,el) {
+                console.log(index);
+                var Name=datas[index].name;
+                console.log(Name)
+                if(datas[index].isread=="0"){
+                    if(datas[index].type==1){
+                        strs+=` <li data-id=`+datas[index].id+` data-type=`+datas[index].type+` data-is=`+datas[index].isread+` onclick="gotoMessInfo(this)">
+                                <div class="myheader pr">
+                                    <div class="myhead">
+                                        <img src=`+datas[index].tou+`>
+                                    </div>
+                                    <div class="myinfo">
+                                        <p>`+Name+`向您提出借款</p>
+                                        <p class="pric">`+datas[index].apply_time.substring(0,11)+`</p>
+                                    </div>
+                                    <span class="zjmx pa">未读</span>
+                                </div>
+                            </li>`
+                    }else if(datas[index].type==2){
+                        strs+=`  <li data-id=`+datas[index].id+` data-type=`+datas[index].type+` data-is=`+datas[index].isread+` onclick="gotoMessInfo(this)">
+                                <div class="myheader pr">
+                                    <div class="myhead">
+                                        <img src=`+datas[index].tou+`>
+                                    </div>
+                                    <div class="myinfo">
+                                        <p>`+Name+`同意了您的借款</p>
+                                        <p class="pric">`+datas[index].apply_time.substring(0,11)+`</p>
+                                    </div>
+                                    <span class="zjmx pa">未读</span>
+                                </div>
+                            </li>`
+                    }else if(datas[index].type==3){
+                        strs+=`  <li data-id=`+datas[index].id+` data-type=`+datas[index].type+` data-is=`+datas[index].isread+` onclick="gotoMessInfo(this)">
+                                <div class="myheader pr">
+                                    <div class="myhead">
+                                        <img src=`+datas[index].tou+`>
+                                    </div>
+                                    <div class="myinfo">
+                                        <p>`+Name+`已向您还款</p>
+                                        <p class="pric">`+datas[index].apply_time.substring(0,11)+`</p>
+                                    </div>
+                                    <span class="zjmx pa">未读</span>
+                                </div>
+                            </li>`
+                    }else if(datas[index].type==4){
+                        strs+=`  <li data-id=`+datas[index].id+` data-type=`+datas[index].type+` data-is=`+datas[index].isread+` onclick="gotoMessInfo(this)">
+                                <div class="myheader pr">
+                                    <div class="myhead">
+                                        <img src=`+datas[index].tou+`>
+                                    </div>
+                                    <div class="myinfo">
+                                        <p>`+Name+`申请下线还款</p>
+                                        <p class="pric">`+datas[index].apply_time.substring(0,11)+`</p>
+                                    </div>
+                                    <span class="zjmx pa">未读</span>
+                                </div>
+                            </li>`
+                    }
+
+                }else {
+                        if(datas[index].type==1){
+                            strs+=`  <li data-id=`+datas[index].id+` data-type=`+datas[index].type+` data-is=`+datas[index].isread+` onclick="gotoMessInfo(this)">
+                                <div class="myheader pr">
+                                    <div class="myhead">
+                                        <img src=`+datas[index].tou+`>
+                                    </div>
+                                    <div class="myinfo">
+                                        <p>`+Name+`向您提出借款</p>
+                                        <p class="pric">`+datas[index].apply_time.substring(0,11)+`</p>
+                                    </div>
+                                    <span class="zjmx pa yd">已读</span>
+                                </div>
+                            </li>`
+                        }else if(datas[index].type==2){
+                            strs+=`  <li data-id=`+datas[index].id+` data-type=`+datas[index].type+` data-is=`+datas[index].isread+` onclick="gotoMessInfo(this)">
+                                <div class="myheader pr">
+                                    <div class="myhead">
+                                        <img src=`+datas[index].tou+`>
+                                    </div>
+                                    <div class="myinfo">
+                                        <p>`+Name+`同意了您的借款</p>
+                                        <p class="pric">`+datas[index].apply_time.substring(0,11)+`</p>
+                                    </div>
+                                    <span class="zjmx pa yd">已读</span>
+                                </div>
+                            </li>`
+                        }else if(datas[index].type==3){
+                            strs+=`  <li data-id=`+datas[index].id+` data-type=`+datas[index].type+` data-is=`+datas[index].isread+` onclick="gotoMessInfo(this)">
+                                <div class="myheader pr">
+                                    <div class="myhead">
+                                        <img src=`+datas[index].tou+`>
+                                    </div>
+                                    <div class="myinfo">
+                                        <p>`+Name+`已向您还款</p>
+                                        <p class="pric">`+datas[index].apply_time.substring(0,11)+`</p>
+                                    </div>
+                                    <span class="zjmx pa yd">已读</span>
+                                </div>
+                            </li>`
+                        }else if(datas[index].type==4){
+                            strs+=`  <li data-id=`+datas[index].id+` data-type=`+datas[index].type+` data-is=`+datas[index].isread+` onclick="gotoMessInfo(this)">
+                                <div class="myheader pr">
+                                    <div class="myhead">
+                                        <img src=`+datas[index].tou+`>
+                                    </div>
+                                    <div class="myinfo">
+                                        <p>`+Name+`申请下线还款</p>
+                                        <p class="pric">`+datas[index].apply_time.substring(0,11)+`</p>
+                                    </div>
+                                    <span class="zjmx pa yd">已读</span>
+                                </div>
+                            </li>`
+                        }
+                }
+            });
+            $(strs).appendTo("#list")
+        },
+        error : function(err) {
+            //console.log(err);
+        }
+    });
+    $(function(){
+
+    });
+    $("#footer li").on('click',function () {
+        var index=$(this).index();
+        $(this).addClass('active').siblings().removeClass("active");
+        console.log(index);
+        if(index===0){
+            window.location.href="index.html"
+        }else if(index===1){
+            window.location.href="chujie.html"
+        }else if(index===2){
+            window.location.href="messages.html"
+        }else if(index===3){
+            window.location.href="jiaoyi.html"
+        }else if(index===4){
+            window.location.href="my.html"
+        }
+    });
+    function gotoMessInfo(Obj) {
+        var $this=$(Obj);
+        var id=$this.attr("data-id");
+        var type=$this.attr("data-type");
+        var is=$this.attr("data-is");
+        if(type=="1"){
+            window.location.href="huiyingjiekuan.html?id="+id+"&type="+type+"&is="+is
+        }else if(type=="2"){
+            //借款通知
+            window.location.href="jkquerenshoukuan.html?id="+id+"&type="+type+"&is="+is
+        }else if(type=="3"){
+            //还款通知
+            window.location.href="hkquerenshoukuan.html?id="+id+"&type="+type+"&is="+is
+        }else if(type=="4"){
+
+        }
+        console.log(id+type)
+    }
+</script>
+</body>
+</html>

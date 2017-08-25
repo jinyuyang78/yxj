@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>订单详情</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <link href="../Content/css/iosSelect.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+        .wztips2{
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap" style="background-color:#fff">
+       <p class="qjbh">债权编号:3215457444555847<span>债权难度:简单</span></p>
+        <div class="zfxxbox">
+            <div class="zhxx fl">
+                <p>债权金额<span>10K</span></p>
+                <p>逾期时间<span>1个月</span></p>
+                <p>赏金<span>10K</span></p>
+                <p>债权地址<span>北京市朝阳区十八了点</span></p>
+            </div>
+            <div class="qdbtnbox fl">
+                <p>抢单人数:0</p>
+                <p class="qdje">¥20</p>
+                <a href="javascript:;" class="yqd">已抢到</a>
+            </div>
+        </div>
+        <p class="cjtits">债权信息</p>
+        <ul class="cj-zqxx">
+            <li>债务方是否失联 <span>是</span></li>
+            <li>债务方是否有还款能力 <span>是</span></li>
+            <li>是否有担保 <span class="no">否</span></li>
+            <li>抵/质押物价能否覆盖债务 <span>是</span></li>
+            <li>是否诉讼 <span>是</span></li>
+        </ul>
+        <p class="cjtits">债权方信息</p>
+        <ul class="cj-zqxx">
+            <li>债权方: 王天来</li>
+            <li>现住址: 北京市朝阳区</li>
+            <li>联系方式: 152****2815</li>
+        </ul>
+        <p class="cjtits">债务方信息</p>
+        <ul class="cj-zqxx">
+            <li>债务方: 王天来</li>
+            <li>现住址: 北京市朝阳区</li>
+            <li>联系方式: 152****2815</li>
+        </ul>
+        <p class="cjtits">债务凭证</p>
+
+        <ul class="zjpzbox">
+            <p>主要凭证</p>
+            <li style="background-image: url(../Content/imgs/gril.jpg)"></li>
+            <li style="background-image: url(../Content/imgs/gril.jpg)"></li>
+            <li style="background-image: url(../Content/imgs/gril.jpg)"></li>
+            <li style="background-image: url(../Content/imgs/gril.jpg)"></li>
+        </ul>
+        <p class="wztips">等待债权方确认后，隐藏信息可见</p>
+
+        <p class="wztips2 fl">关注人数:20人</p>
+        <p class="wztips2 fr">抢单人数:10人</p>
+        <ul class="qdrbox">
+            <li><span>李**</span> <span>15210792815</span> <span>抢单成功</span></li>
+            <li><span>李**</span> <span>15210792815</span> <span>抢单成功</span></li>
+            <li><span>李**</span> <span>15210792815</span> <span>抢单成功</span></li>
+            <li><span>李**</span> <span>15210792815</span> <span>抢单成功</span></li>
+        </ul>
+    </div>
+
+    <div id="loadingToast" style="opacity: 1;" class="dn">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+    <script src="../Content/js/iosiscroll.js"></script>
+    <script src="../Content/js/iosSelect.js"></script>
+    <script src="../Content/js/input2.js"></script>
+<script>
+    //192.168.199.136
+    var url="http://192.168.199.136:8080/daiqianlai";
+    //var url=" http://j.ccyjs.cn/DiscuzServer";
+    //获取页面传递参数
+    let urs=window.location.search;
+    let strs=urs.substring(1);
+    let silp=strs.split('&');
+    let res={};
+    for (let i=0;i<silp.length;i++){
+        res[silp[i].split("=")[0]]=silp[i].split("=")[1];
+    }
+//    var param={
+//        phonenum:"15210792815",
+//        pwd:"123"
+//    }
+//    $.ajax({
+//        type : "POST",
+//        url : url+"/login/checkLogin.controller",
+//        dataType : 'json',
+//        async: false,
+//        contentType : "application/json",
+//        data :JSON.stringify(param),
+//        success : function(ro) {
+//            console.log(ro);
+//            if(ro.code == 200){
+//                console.log(ro)
+//            }
+//        },
+//        error : function(err) {
+//            alert(err);
+//        }
+//    });
+    var widH=$(window).height();
+    $(".mask").css("height",widH)
+    $(function(){
+        $("#footer li").on('click',function () {
+            $(this).addClass('active').siblings().removeClass("active")
+        });
+    });
+
+</script>
+</body>
+</html>

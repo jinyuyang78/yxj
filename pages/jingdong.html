@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>运营商</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="user-bind-card-verified">
+            <ul class="steps">
+                <li class="steps__item active"><span>1</span>
+                    <p>个人信息</p></li>
+                <li class="steps__item active"><span>2</span>
+                    <p>芝麻信用</p></li>
+                <li class="steps__item active"><span>3</span>
+                    <p>运营商</p></li>
+                <li class="steps__item active"><span>4</span>
+                    <p>京东</p></li>
+            </ul>
+
+            <a class="jddlsq">京东登录授权</a>
+
+
+            <div class="bind-card-button"><span class="qrfbbtn">确认</span></div>
+        </div>
+    </div>
+    <script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script>
+    var winH=$(window).height();
+    $(".wrap").css("height",winH);
+    $(function(){
+            $(".qrfbbtn").on('click',function () {
+                window.location.href=""
+            });
+
+
+
+    });
+
+</script>
+</body>
+</html>

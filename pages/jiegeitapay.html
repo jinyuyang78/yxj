@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>线上支付</title>
+    <link href="../Content/css/style.css" rel="stylesheet">
+    <script src="../Content/js/rem.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../Content/imgs/kbloading.gif">
+</div>
+<div class="wrap" style="background-color: #fff">
+    <div class="att"><img src="../Content/imgs/gril.jpg" id="img"></div>
+    <div class="jkqr-name" id="name"></div>
+    <div class="jkqr-je">支付款项:&nbsp;&nbsp;<span id="dzje">1000</span>.00元</div>
+    <div class="qrsk-btn" onclick="qrzf()">确认支付</div>
+</div>
+<div class="passbox">
+    <div class="wz">请输入支付密码</div>
+    <div class="ipt-box-nick mb15-nick">
+        <input type="tel" maxlength="6" class="ipt-real-nick" id="ipt-real-nick">
+        <div class="ipts-box-nick">
+            <div class="ipt-fake-box">
+                <input type="text" >
+                <input type="text" >
+                <input type="text" >
+                <input type="text" >
+                <input type="text" >
+                <input type="text" >
+            </div>
+        </div>
+        <div class="ipt-active-nick"><img src="../Content/imgs/founs.gif"></div>
+    </div>
+
+    <a href="wjzfmm.html" class="wjzfmm">忘记支付密码</a>
+</div>
+<div class="mask"></div>
+<script src="../Content/js/jquery-2.2.4.min.js"></script>
+<script src="../Content/js/jgtpayinput.js"></script>
+<script src="../Content/js/layer-mobl.js"></script>
+<script>
+    var urs=window.location.search;
+    var strs=urs.substring(1);
+    var silp=strs.split('&');
+    var res={};
+    for (var i=0;i<silp.length;i++){
+        res[silp[i].split("=")[0]]=silp[i].split("=")[1];
+    }
+    console.log(res);
+    var winH=$(window).height();
+    $(".wrap,.mask").css("height",winH);
+    //message/getRefundMessageById
+    $.ajax({
+        type : "GET",
+        url : localStorage.url+"/loan/getAppBorrowByid",
+        dataType : 'json',
+        async: false,
+        contentType : "application/json",
+        data :{
+            id:res.id
+        },
+        success : function(datas) {
+            console.log(datas);
+            $("#img").attr("src",datas.tou);
+            $("#name").html(datas.name);
+            $("#dzje").html(datas.loan_money);
+            $("#loading").hide();
+
+        },
+        error : function(err) {
+            //console.log(err);
+        }
+    });
+    $(".mask").on('click',function () {
+        $(this).hide();
+        $(".passbox").hide();
+    })
+    function qrzf() {
+        $(".mask").show();
+        $(".passbox").show()
+    }
+
+</script>
+</body>
+</html>
